@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/BDA"/>
+	<classpathentry kind="src" path="src/JUnitTests"/>
+	<classpathentry kind="src" path="JavaDoc"/>
+	<classpathentry kind="src" path="TestCoverage"/>
+	<classpathentry kind="src" path="CodeInception"/>
+	<classpathentry kind="src" path="ReverseEngeneeringModels"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
