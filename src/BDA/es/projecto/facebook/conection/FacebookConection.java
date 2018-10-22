@@ -13,7 +13,6 @@ public class FacebookConection {
 	
 	private static String accessToken="EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL";
 
-
 	public FacebookConection() {
 	}
 	
@@ -50,6 +49,11 @@ public void getUserTimelinePosts() {
 		
 	}
 
+
+public void getPostsIscte() {
+	
+	
+}
 	public static void main(String[] args) {
 		
 		FacebookConection fc = new FacebookConection();
