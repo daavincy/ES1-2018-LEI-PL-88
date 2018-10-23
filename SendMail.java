@@ -17,7 +17,7 @@ public class SendMail {
 			String to= "jpfabc@live.com.pt";
 			String from= "jpfabc@gmail.com";
 			String subject= "test";
-			String text= "test received";
+			String text= "success";
 			
 			Properties props =System.getProperties();
 			
