@@ -20,7 +20,7 @@ public class ReadXML {
 		
 		try {
 
-			File fXmlFile = new File("/NewFile.xml");
+			File fXmlFile = new File("src/BDA/es/projecto/config/NewFile.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
@@ -46,6 +46,7 @@ public class ReadXML {
 								.getTextContent());
 						
 						System.out.println(fc);
+						
 						/*		
 						TwitterMain twitter = new TwitterMain(eElement.getElementsByTagName("consumerKey").item(0).getTextContent(),
 								eElement.getElementsByTagName("consumerSecret").item(0).getTextContent(),
