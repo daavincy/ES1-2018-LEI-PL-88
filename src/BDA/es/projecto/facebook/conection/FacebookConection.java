@@ -11,14 +11,15 @@ import com.restfb.types.User;
 
 public class FacebookConection {
 	
-	private static String accessToken="EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL";
+	private String accessToken; //="EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL";
 
-	public FacebookConection() {
-	}
+	private FacebookClient fbClient;
 	
-public void getUserTimelinePosts() {
+	
+	public FacebookConection(String accessToken) {
+		this.accessToken=accessToken;
 		
-		FacebookClient fbClient = new DefaultFacebookClient(accessToken);
+		fbClient = new DefaultFacebookClient(accessToken);
 		AccessToken extendedAccessToken4 = fbClient.obtainExtendedAccessToken("322792248523808","9fb34f027c272ab0d46b40df34ad0410");
 		
 		//Dados User
@@ -26,6 +27,10 @@ public void getUserTimelinePosts() {
 		System.out.println("Facebook:");
 		System.out.println("Id: " + me2.getId());
 		System.out.println("Name: " + me2.getName());
+		
+	}
+	
+public void getUserTimelinePosts() {
 		
 		//Posts
 		Connection<Post> result = fbClient.fetchConnection("me/feed",Post.class);
@@ -50,13 +55,15 @@ public void getUserTimelinePosts() {
 	}
 
 
-public void getPostsIscte() {
+	public void getPostsIscte() {
 	
 	
-}
+	}
+	
+	
 	public static void main(String[] args) {
 		
-		FacebookConection fc = new FacebookConection();
+		FacebookConection fc = new FacebookConection("EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL");
 		fc.getUserTimelinePosts();
 
 	}

@@ -1,3 +1,5 @@
+package es.projecto.config;
+
 import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -42,12 +44,14 @@ public class ReadXML {
 						
 						FacebookConection fc = new FacebookConection(eElement.getElementsByTagName("accessToken").item(0)
 								.getTextContent());
-								
+						
+						System.out.println(fc);
+						/*		
 						TwitterMain twitter = new TwitterMain(eElement.getElementsByTagName("consumerKey").item(0).getTextContent(),
 								eElement.getElementsByTagName("consumerSecret").item(0).getTextContent(),
 								eElement.getElementsByTagName("AccessToken").item(0).getTextContent(),
 								eElement.getElementsByTagName("AccessTokenSecret").item(0).getTextContent());
-				
+						*/
 					}
 			
 				}
