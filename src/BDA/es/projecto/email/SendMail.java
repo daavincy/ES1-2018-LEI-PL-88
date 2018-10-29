@@ -1,55 +1,53 @@
 package es.projecto.email;
 
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.*;
+import javax.activation.*;
+import javax.mail.internet.*;
+
+import java.util.*;
+
 
 public class SendMail {
-
+	
 	public static void main(String[] args) {
-		
-	      String to = "a@gmail.com"; //Variavel Y
-
-	      String from = "web@gmail.com"; //Variavel X
-
-	      String host = "localhost";
-
-	      // Get system properties
-	      Properties properties = System.getProperties();
-
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
-
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
-
-	      try {
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
-
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-	         // Set Subject: header field
-	         message.setSubject("This is the Subject Line!");
-
-	         // Now set the actual message
-	         message.setText("This is actual message");
-
-	         // Send message
-	         Transport.send(message);
-	         System.out.println("Sent message successfully....");
-	      } catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
-
+		try {
+			String host= "smtp.gmail.com";
+			String user= "jpfabc@gmail.com";
+			String pass= "jpfabc123";
+			String to= "jpfabc@live.com.pt";
+			String from= "jpfabc@gmail.com";
+			String subject= "test";
+			String text= "test received";
+			
+			Properties props =System.getProperties();
+			
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.host", host);
+			props.put("mail.smtp.port", "587");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.strattls.required", "true");
+			
+			
+			Session mailSession=Session.getDefaultInstance(props,null);
+			Message msg = new MimeMessage(mailSession);
+			msg.setFrom(new InternetAddress(from));
+			InternetAddress address= (new InternetAddress(to));
+			msg.setRecipient(Message.RecipientType.TO, address);
+			msg.setSubject(subject);
+			msg.setSentDate(new Date());
+			msg.setText(text);
+			
+			Transport transport=mailSession.getTransport("smtp");
+			transport.connect(host,user,pass);
+			transport.sendMessage(msg, msg.getAllRecipients());
+			transport.close();
+			System.out.println("message sent");
+		}catch(Exception ex)
+		{
+			System.out.println(ex);
+			
+		}
 	}
-
-}
+		
+	
+} 

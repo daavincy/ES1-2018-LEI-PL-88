@@ -13,9 +13,6 @@ public class BDAHmi {
 		if(tree.equals("Bananeira")) {
 			return true;
 		}
-		
-		
 		return false;
-		
 	}
 }
