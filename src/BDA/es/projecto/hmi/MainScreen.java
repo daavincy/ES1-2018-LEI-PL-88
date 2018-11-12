@@ -111,7 +111,7 @@ public class MainScreen extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				((JButton) e.getSource()).disable();
+				((JButton) e.getSource()).setEnabled(false);
 				base.remove(newsList);
 				try {
 					newsList = getNewsList(new String[]{"facebook"});
@@ -120,7 +120,7 @@ public class MainScreen extends JFrame{
 				}
 				base.add(newsList, BorderLayout.CENTER);
 				setContentPane(base);
-				((JButton) e.getSource()).enable();
+				((JButton) e.getSource()).setEnabled(true);
 				repaint();
 			}
 		});
