@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import es.projecto.facebook.conection.FacebookConection;
+import es.projecto.twitter.conection.TwitterMain;
 
 public class ReadXML {
 
@@ -42,17 +43,20 @@ public class ReadXML {
 
 						Element eElement = (Element) nNode;
 						
+						
 						FacebookConection fc = new FacebookConection(eElement.getElementsByTagName("accessToken").item(0)
 								.getTextContent());
 						
 						System.out.println(fc);
 						
-						/*		
-						TwitterMain twitter = new TwitterMain(eElement.getElementsByTagName("consumerKey").item(0).getTextContent(),
+							
+						TwitterMain tw = new TwitterMain(eElement.getElementsByTagName("consumerKey").item(0).getTextContent(),
 								eElement.getElementsByTagName("consumerSecret").item(0).getTextContent(),
 								eElement.getElementsByTagName("AccessToken").item(0).getTextContent(),
 								eElement.getElementsByTagName("AccessTokenSecret").item(0).getTextContent());
-						*/
+						
+						System.out.println(tw.getStatuses());
+						
 					}
 			
 				}
