@@ -15,6 +15,11 @@
 		<accessTokenSecret>hXjYJYu2mGqh21IoxIDxZqupBAr8KW8abeLFBX8oU7MM9</accessTokenSecret>
 	
 	</name>
+	
+	<name id= "Email">
+		<user>afcma11@gmail.com</user>
+		<pass>1234wasd</pass>
+	</name>
 
 
 
