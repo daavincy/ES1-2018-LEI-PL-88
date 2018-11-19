@@ -1,0 +1,18 @@
+<configurations>
+  <twitterConfigs>
+    <consumer_key>consumer_key</consumer_key>
+    <consumer_secret>consumer_secret</consumer_secret>
+    <access_token>access_token</access_token>
+    <access_token_secret>access_token_secret</access_token_secret>
+  </twitterConfigs>
+  <emailConfigs>
+    <user>user</user>
+    <password>password</password>
+  </emailConfigs>
+  <facebookConfigs>
+    <app_id>app_id</app_id>
+    <access_token>access_token</access_token>
+    <client_id>client_id</client_id>
+    <accessToken>access_token</accessToken>
+  </facebookConfigs>
+</configurations>
