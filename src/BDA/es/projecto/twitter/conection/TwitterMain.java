@@ -10,8 +10,17 @@ import twitter4j.conf.ConfigurationBuilder;
 public final class TwitterMain  {
 	
 	private ArrayList<Status> statuses;
+	
 	private Twitter twitter;
 	
+	
+	/**
+	 * TwitterMain constructor
+	 * @param consumerKey
+	 * @param consumerSecret
+	 * @param accessToken
+	 * @param accessTokenSecret
+	 */
 	public TwitterMain(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
 
 		  try {
@@ -30,6 +39,10 @@ public final class TwitterMain  {
 		}
 	}
 	
+	
+	/**
+	 * @return ArrayList with the filtered statuses
+	 */
 	public ArrayList<Status> getStatuses() {
 		
 		ArrayList<Status> aux = new ArrayList<Status>();
@@ -51,7 +64,7 @@ public final class TwitterMain  {
 					counterTotal++;
 	            }
 	          
-	    		System.out.println("-------------\nNº of Results: " + counter+"/"+counterTotal);
+	    		System.out.println("-------------\nNï¿½ of Results: " + counter+"/"+counterTotal);
 	    		
 	    		System.out.println(aux);
 	    		return aux;
@@ -69,6 +82,10 @@ public final class TwitterMain  {
 
 
 
+	/**
+	 * Main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		// http://twitter4j.org/en/code-examples.html
