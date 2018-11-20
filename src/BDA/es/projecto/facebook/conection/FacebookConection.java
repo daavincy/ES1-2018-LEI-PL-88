@@ -1,5 +1,6 @@
 package es.projecto.facebook.conection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Connection;
@@ -16,6 +17,10 @@ public class FacebookConection {
 	private FacebookClient fbClient;
 	
 	
+	/**
+	 * FacebookConnector constructor
+	 * @param accessToken
+	 */
 	public FacebookConection(String accessToken) {
 		this.accessToken=accessToken;
 		
@@ -30,8 +35,13 @@ public class FacebookConection {
 		
 	}
 	
-public void getUserTimelinePosts() {
+	
+	/**
+	 * @return ArrayList with the filtered posts
+	 */
+	public ArrayList<Post> getUserTimelinePosts() {
 		
+		ArrayList<Post> fbOutput = new ArrayList<>();
 		//Posts
 		Connection<Post> result = fbClient.fetchConnection("me/feed",Post.class);
 		System.out.println("\nPosts:");
@@ -47,20 +57,25 @@ public void getUserTimelinePosts() {
 					System.out.println("Message: "+aPost.getMessage());
 					System.out.println("Created: "+aPost.getCreatedTime());
 					counter5++;
+					fbOutput.add(aPost);
 				}
 				counterTotal++;
 			}
 		}
-		
+		return fbOutput;
 	}
 
-
+ 
 	public void getPostsIscte() {
 	
 	
 	}
 	
 	
+	/**
+	 * Main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		FacebookConection fc = new FacebookConection("EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL");

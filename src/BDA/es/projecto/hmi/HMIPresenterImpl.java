@@ -26,7 +26,7 @@ public class HMIPresenterImpl implements HmiPresenter {
 	private List<NewsHeaders> getTwitterData() {
 		ArrayList<NewsHeaders> result = new ArrayList<NewsHeaders>();
 		main.getStatuses().stream().forEach(t->{
-			result.add(new NewsHeaders(t.getId(),Constants.TWITTER_ID , t.getUser().getScreenName(),t.getText(), t.getCreatedAt()));
+			result.add(new NewsHeaders(t.getId(),Constants.TWITTER_ID , t.getUser().getScreenName(), t.getText().substring(0, 50),t.getText(), t.getCreatedAt()));
 		});
 		return result;
 	}
