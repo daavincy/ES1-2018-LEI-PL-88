@@ -13,7 +13,7 @@ public final class TwitterMain  {
 	
 	private Twitter twitter;
 	
-	
+	 
 	/**
 	 * TwitterMain constructor
 	 * @param consumerKey
