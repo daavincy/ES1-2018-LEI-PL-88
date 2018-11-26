@@ -61,7 +61,7 @@ public class Email {
 	 * 
 	 * @return ArrayList de Email Recebidos
 	 */
-	private List<NewsHeaders> getEmails() {
+	public List<NewsHeaders> getEmails() {
 		try {
 			// create properties field
 			Properties prop = new Properties();
