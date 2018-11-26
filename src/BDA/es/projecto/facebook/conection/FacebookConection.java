@@ -3,12 +3,17 @@ package es.projecto.facebook.conection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.Header;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.FacebookClient.AccessToken;
 import com.restfb.types.Post;
 import com.restfb.types.User;
+
+import es.projecto.hmi.pojos.NewsHeaders;
+import es.projecto.hmi.utils.Constants;
 
 public class FacebookConection {
 	
@@ -39,36 +44,43 @@ public class FacebookConection {
 	/**
 	 * @return ArrayList with the filtered posts
 	 */
-	public ArrayList<Post> getUserTimelinePosts() {
+	public ArrayList<NewsHeaders> getUserTimelinePosts() {
 		
-		ArrayList<Post> fbOutput = new ArrayList<>();
+		//ArrayList<Post> fbOutput = new ArrayList<>();
 		//Posts
 		Connection<Post> result = fbClient.fetchConnection("me/feed",Post.class);
 		System.out.println("\nPosts:");
 		int counter5 = 0;
 		int counterTotal = 0;
+		
+		ArrayList<NewsHeaders> header = new ArrayList<>();
+		
 		for (List<Post> page : result) {
 			for (Post aPost : page) {
 				// Filters only posts that contain the word "Inform"
+				
 				if (aPost.getMessage() != null && aPost.getMessage().contains("ISCTE")) {
 					
 					System.out.println("---- Post "+ counter5 + " ----");
+					
 					System.out.println("Id: "+"fb.com/"+aPost.getId());
 					System.out.println("Message: "+aPost.getMessage());
 					System.out.println("Created: "+aPost.getCreatedTime());
+					
 					counter5++;
-					fbOutput.add(aPost);
+					//fbOutput.add(aPost);
+					
+					header.add(new NewsHeaders(null, Constants.FACEBOOK_ID, aPost.getDescription() , aPost.getMessage(), aPost.getFrom().toString(), aPost.getCreatedTime()));
+					
 				}
 				counterTotal++;
 			}
 		}
-		return fbOutput;
+		return header;
 	}
 
  
 	public void getPostsIscte() {
-	
-	
 	}
 	
 	
