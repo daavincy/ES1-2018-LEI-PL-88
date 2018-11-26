@@ -1,4 +1,4 @@
-package es.projecto.twitter.conection;
+	package es.projecto.twitter.conection;
 
 import java.util.ArrayList;
 import twitter4j.Status;
@@ -41,7 +41,11 @@ public final class TwitterMain  {
 	
 	
 	/**
+	 * Metodo Devolve um Arraylist, filtrado por ISCTE, com os status do nome do user e respetivo texto do twitt
+	 * 
 	 * @return ArrayList with the filtered statuses
+	 * 
+	 * 
 	 */
 	public ArrayList<Status> getStatuses() {
 		
