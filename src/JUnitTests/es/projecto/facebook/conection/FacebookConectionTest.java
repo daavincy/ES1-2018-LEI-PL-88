@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.types.Post;
 
+import es.projecto.hmi.pojos.NewsHeaders;
+
 class FacebookConectionTest {
 	
 	private String accessToken ="EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL";
@@ -16,7 +18,7 @@ class FacebookConectionTest {
 
 	@Test
 	void test() {
-		ArrayList<Post> result = fb.getUserTimelinePosts();
+		ArrayList<NewsHeaders> result = fb.getUserTimelinePosts();
 		assertNotNull(result);
 	}
 
