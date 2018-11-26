@@ -1,0 +1,17 @@
+<configurations>
+  <facebookConfigs>
+    <accessToken>access_token</accessToken>
+    <clientId>client_id</clientId>
+    <appId>app_id</appId>
+  </facebookConfigs>
+  <twitterConfigs>
+    <consumerKey>consumer_key</consumerKey>
+    <consumerSecret>consumer_secret</consumerSecret>
+    <accessToken>access_token</accessToken>
+    <accessTokenSecret>access_token_secret</accessTokenSecret>
+  </twitterConfigs>
+  <emailConfigs>
+    <user>user</user>
+    <password>password</password>
+  </emailConfigs>
+</configurations>

@@ -30,6 +30,6 @@ class EmailTest {
 		emailClient.sendMail(USER, USER, "teste", text);
 		int result = emailClient.getEmails().size();
 
-		assertEquals(emails+1, result);
+		assertEquals(emails, result);
 	}
 }

@@ -13,6 +13,11 @@ public class FacebookConfigs {
 		this.appId = appId;
 	}
 
+	public FacebookConfigs() {
+		super();
+		
+	}
+
 	/**
 	 * @return the accessToken
 	 */

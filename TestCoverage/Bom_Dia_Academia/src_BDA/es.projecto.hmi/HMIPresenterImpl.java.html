@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>HMIPresenterImpl.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (26-Nov-2018 20:19:26)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi</a> &gt; <span class="el_source">HMIPresenterImpl.java</span></div><h1>HMIPresenterImpl.java</h1><pre class="source lang-java linenums">package es.projecto.hmi;
+
+import java.awt.EventQueue;
+import java.nio.channels.NotYetConnectedException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import es.projecto.hmi.pojos.BDAConfigs;
+import es.projecto.hmi.pojos.NewsHeaders;
+import es.projecto.hmi.utils.Constants;
+import es.projecto.twitter.conection.TwitterMain;
+
+/**
+ * Classe que implementa o interface que habilita o GUI o acesso aos dados e inicializa a aplicação
+ * @author Elvino Monteiro
+ *
+ */
+public class HMIPresenterImpl implements HmiPresenter {
+
+	private TwitterMain main;
+
+<span class="fc" id="L29">	public HMIPresenterImpl() {</span>
+<span class="fc" id="L30">		main = new TwitterMain(BDAConfigs.twitter_consumerKey, BDAConfigs.twitter_consumerSecret,</span>
+<span class="fc" id="L31">				BDAConfigs.twitter_accessToken, BDAConfigs.twitter_accessTokenSecret);</span>
+<span class="fc" id="L32">	}</span>
+	
+	/**
+	 * Obtem uma lista de feeds do twitter que sejam publicados por contas associadas ao iscte
+	 * 
+	 * @return a lista obtida
+	 */
+	private List&lt;NewsHeaders&gt; getTwitterData() {
+<span class="fc" id="L40">		ArrayList&lt;NewsHeaders&gt; result = new ArrayList&lt;NewsHeaders&gt;();</span>
+
+<span class="fc" id="L42">		main.getStatuses().stream().forEach(t -&gt; {</span>
+
+<span class="fc" id="L44">			result.add(new NewsHeaders(t.getId(), Constants.TWITTER_ID,</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">					t.getText().length() &lt; 30 ? t.getText() : t.getText().substring(1, 30), t.getText(),</span>
+<span class="fc" id="L46">					t.getUser().getScreenName(), t.getCreatedAt()));</span>
+<span class="fc" id="L47">		});</span>
+<span class="fc" id="L48">		return result;</span>
+	}
+	
+	
+	/**
+	 * Obtem uma lista de feeds do facebook
+	 * 
+	 * @return a lista obtida
+	 */
+	private List&lt;NewsHeaders&gt; getFacebookData() {
+<span class="fc" id="L58">		return new ArrayList&lt;&gt;();</span>
+	}
+
+	/**
+	 * Obtem uma lista de feeds do email
+	 * 
+	 * @return a lista obtida
+	 */
+	private List&lt;NewsHeaders&gt; getEmailData() {
+<span class="fc" id="L67">		return new ArrayList&lt;&gt;();</span>
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#getNewsFeeds()
+	 */
+	@Override
+	public List&lt;NewsHeaders&gt; getNewsFeeds() {
+<span class="fc" id="L77">		List&lt;NewsHeaders&gt; result = getTwitterData();</span>
+<span class="fc" id="L78">		result.addAll(getFacebookData());</span>
+<span class="fc" id="L79">		result.addAll(getEmailData());</span>
+<span class="fc" id="L80">		result.sort((d1,d2)-&gt; d1.getDate().compareTo(d2.getDate()));</span>
+<span class="fc" id="L81">		return result;</span>
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#getNewsFeeds(int provider)
+	 */
+	@Override
+	public List&lt;NewsHeaders&gt; getNewsFeeds(int provider) {
+<span class="fc bfc" id="L91" title="All 4 branches covered.">		switch (provider) {</span>
+		case Constants.TWITTER_ID:
+<span class="fc" id="L93">			return getTwitterData();</span>
+		case Constants.FACEBOOK_ID:
+<span class="fc" id="L95">			return getFacebookData();</span>
+		case Constants.EMAIL_ID:
+<span class="fc" id="L97">			return getEmailData();</span>
+		default:
+<span class="fc" id="L99">			return new ArrayList&lt;&gt;();</span>
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#closeConnections()
+	 */
+	@Override
+	public void closeConnections() {
+		// TODO close de connections opened during execution.
+
+<span class="nc" id="L112">	}</span>
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#getConfigurations()
+	 */
+	@Override
+	public void getConfigurations() {
+		// TODO Auto-generated method stub
+
+<span class="nc" id="L123">	}</span>
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#setConfigurations(es.projecto.hmi.pojos.
+	 * BDAConfigs)
+	 */
+	@Override
+	public void setConfigurations(BDAConfigs configs) {
+		// TODO Auto-generated method stub
+
+<span class="nc" id="L135">	}</span>
+
+	public static void main(String[] args) {
+		try {
+			// Set cross-platform Java L&amp;F (also called &quot;Metal&quot;)
+<span class="fc" id="L140">			UIManager.setLookAndFeel(&quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;);</span>
+<span class="pc" id="L141">		} catch (Exception e) {</span>
+			// handle exception
+		}
+
+<span class="fc" id="L145">		EventQueue.invokeLater(new Runnable() {</span>
+			public void run() {
+				try {
+<span class="fc" id="L148">					BomDiaAcademia window = new BomDiaAcademia(new HMIPresenterImpl());</span>
+<span class="fc" id="L149">					window.frame.setVisible(true);</span>
+<span class="pc" id="L150">				} catch (Exception e) {</span>
+<span class="nc" id="L151">					e.printStackTrace();</span>
+				}
+<span class="fc" id="L153">			}</span>
+		});
+<span class="fc" id="L155">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (26-Nov-2018 20:19:26)</div></body></html>

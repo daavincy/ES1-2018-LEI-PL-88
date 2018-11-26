@@ -1,1 +1,9 @@
+es.projecto.common
+es.projecto.config
+es.projecto.email
+es.projecto.facebook.conection
 es.projecto.hmi
+es.projecto.hmi.controlers
+es.projecto.hmi.pojos
+es.projecto.hmi.utils
+es.projecto.twitter.conection

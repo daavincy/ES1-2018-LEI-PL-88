@@ -1,6 +1,15 @@
 package es.projecto.hmi.pojos;
 
-public class EmailConfigs {
+import java.io.Serializable;
+
+public class EmailConfigs implements Serializable{
+	public EmailConfigs() {
+		super();
+	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6194755115417996443L;
 	private String user;
 	private String password;
 	public EmailConfigs(String user, String password) {

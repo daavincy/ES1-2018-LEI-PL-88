@@ -1,6 +1,17 @@
 package es.projecto.hmi.pojos;
 
-public class TwitterConfigs {
+import java.io.Serializable;
+
+public class TwitterConfigs implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public TwitterConfigs() {
+		super();
+	}
+
 	private String consumerKey;
 	private String consumerSecret;
 	private String accessToken;

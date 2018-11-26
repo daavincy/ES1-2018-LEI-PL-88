@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TwitterConfigs.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (26-Nov-2018 20:19:26)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.pojos</a> &gt; <span class="el_source">TwitterConfigs.java</span></div><h1>TwitterConfigs.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.pojos;
+
+import java.io.Serializable;
+
+public class TwitterConfigs implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public TwitterConfigs() {
+<span class="fc" id="L12">		super();</span>
+<span class="fc" id="L13">	}</span>
+
+	private String consumerKey;
+	private String consumerSecret;
+	private String accessToken;
+	private String accessTokenSecret;
+	
+	public TwitterConfigs(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
+<span class="fc" id="L21">		super();</span>
+<span class="fc" id="L22">		this.consumerKey = consumerKey;</span>
+<span class="fc" id="L23">		this.consumerSecret = consumerSecret;</span>
+<span class="fc" id="L24">		this.accessToken = accessToken;</span>
+<span class="fc" id="L25">		this.accessTokenSecret = accessTokenSecret;</span>
+<span class="fc" id="L26">	}</span>
+
+	/**
+	 * @return the consumerKey
+	 */
+	public String getConsumerKey() {
+<span class="fc" id="L32">		return consumerKey;</span>
+	}
+
+	/**
+	 * @param consumerKey the consumerKey to set
+	 */
+	public void setConsumerKey(String consumerKey) {
+<span class="fc" id="L39">		this.consumerKey = consumerKey;</span>
+<span class="fc" id="L40">	}</span>
+
+	/**
+	 * @return the consumerSecret
+	 */
+	public String getConsumerSecret() {
+<span class="fc" id="L46">		return consumerSecret;</span>
+	}
+
+	/**
+	 * @param consumerSecret the consumerSecret to set
+	 */
+	public void setConsumerSecret(String consumerSecret) {
+<span class="fc" id="L53">		this.consumerSecret = consumerSecret;</span>
+<span class="fc" id="L54">	}</span>
+
+	/**
+	 * @return the accessToken
+	 */
+	public String getAccessToken() {
+<span class="fc" id="L60">		return accessToken;</span>
+	}
+
+	/**
+	 * @param accessToken the accessToken to set
+	 */
+	public void setAccessToken(String accessToken) {
+<span class="fc" id="L67">		this.accessToken = accessToken;</span>
+<span class="fc" id="L68">	}</span>
+
+	/**
+	 * @return the accessTokenSecret
+	 */
+	public String getAccessTokenSecret() {
+<span class="fc" id="L74">		return accessTokenSecret;</span>
+	}
+
+	/**
+	 * @param accessTokenSecret the accessTokenSecret to set
+	 */
+	public void setAccessTokenSecret(String accessTokenSecret) {
+<span class="fc" id="L81">		this.accessTokenSecret = accessTokenSecret;</span>
+<span class="fc" id="L82">	}</span>
+
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (26-Nov-2018 20:19:26)</div></body></html>

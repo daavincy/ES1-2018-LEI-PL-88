@@ -20,14 +20,21 @@ public class ListRender extends ListElements implements ListCellRenderer<NewsHea
 
 	private DetailsViewCallback callback;
 
+	
+	/**
+	 * Cria uma nova linha atraves da extensão do layout {@link ListElements}
+	 * @param callback é o objecto utilizado para efectuar acções no Interface gráfico
+	 */
 	public ListRender(DetailsViewCallback callback) {
 		this.callback = callback;
 	}
-
-	public ListRender() {
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.ListCellRenderer#getListCellRendererComponent(JList<? extends NewsHeaders> list, NewsHeaders value, int index, boolean isSelected, boolean cellHasFocus)
+	 */
 	@Override
 	public Component getListCellRendererComponent(JList<? extends NewsHeaders> list, NewsHeaders value, int index,
 			boolean isSelected, boolean cellHasFocus) {

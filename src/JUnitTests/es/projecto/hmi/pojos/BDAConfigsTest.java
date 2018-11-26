@@ -30,7 +30,10 @@ public class BDAConfigsTest {
 
 	@Test
 	public void testGetTwiterLogo() throws Exception {
-		throw new RuntimeException("not yet implemented");
+		int width = 120;
+		int height = 120;
+		ImageIcon testIcon = BDAConfigs.getTwiterLogo(120,120);
+		Assertions.assertTrue(testIcon.getIconHeight()==height && testIcon.getIconWidth()==width);	
 	}
 	
 	@Test

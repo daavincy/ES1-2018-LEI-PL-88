@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>BDAConfigs.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (26-Nov-2018 20:19:26)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.pojos</a> &gt; <span class="el_source">BDAConfigs.java</span></div><h1>BDAConfigs.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.pojos;
+
+import java.awt.Image;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+<span class="nc" id="L8">public class BDAConfigs {</span>
+<span class="fc" id="L9">	public static String twitter_consumerKey = &quot;WwkVm3nKOV5OF7b1iSkLqPE6w&quot;;</span>
+<span class="fc" id="L10">	public static String twitter_consumerSecret = &quot;DPKF4GyPbtgB3tO5RdnyOW2Ad03vq1V0fYZxorvTlakj8IjuAF&quot;;</span>
+<span class="fc" id="L11">	public static String twitter_accessToken = &quot;1052230420182519808-rDk4irssdofqNhmefXYpfjdwBicl3x&quot;;</span>
+<span class="fc" id="L12">	public static String twitter_accessTokenSecret = &quot;hXjYJYu2mGqh21IoxIDxZqupBAr8KW8abeLFBX8oU7MM9&quot;;</span>
+
+	static ImageIcon getLogoImage() {
+<span class="fc" id="L15">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;logo_iscte.png&quot;));</span>
+	}
+
+	static ImageIcon getMenuImage() {
+<span class="fc" id="L19">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;menu.png&quot;));</span>
+	}
+	
+	static ImageIcon getTwitterImage() {
+<span class="fc" id="L23">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;twitter.png&quot;));</span>
+	}
+	
+	static ImageIcon getFacebookImage() {
+<span class="nc" id="L27">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;facebook.png&quot;));</span>
+	}
+	
+	static ImageIcon getEmailImage() {
+<span class="nc" id="L31">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;email.png&quot;));</span>
+	}
+
+	private static ImageIcon resizeImage(ImageIcon input, int width, int height) {
+<span class="fc" id="L35">		Image image = input.getImage(); // transform it</span>
+<span class="fc" id="L36">		Image newimg = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way</span>
+<span class="fc" id="L37">		return new ImageIcon(newimg);</span>
+	}
+
+	public static ImageIcon getLogoImage(int width, int height)  {
+<span class="fc" id="L41">		ImageIcon imageIcon = getLogoImage(); // load the image to a imageIcon</span>
+<span class="fc" id="L42">		return resizeImage(imageIcon, width, height);</span>
+	}
+
+	public static ImageIcon getMenuImage(int width, int height) {
+<span class="fc" id="L46">		ImageIcon imageIcon = getMenuImage(); // load the image to a imageIcon</span>
+<span class="fc" id="L47">		return resizeImage(imageIcon, width, height);</span>
+	}
+
+	public static ImageIcon getTwiterLogo(int width, int height) {
+<span class="fc" id="L51">		return resizeImage(getTwitterImage(), width, height);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (26-Nov-2018 20:19:26)</div></body></html>
