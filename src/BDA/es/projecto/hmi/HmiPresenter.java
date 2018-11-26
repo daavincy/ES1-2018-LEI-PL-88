@@ -13,6 +13,7 @@ public interface HmiPresenter  {
 	List<NewsHeaders> getNewsFeeds();
 	/**
 	 * Obtem, filtrado por fonte,nas noticias relevantes
+	 * @param provider usado para filtrar as noticias
 	 * @return a lista de noticias relevantes
 	 */
 	List<NewsHeaders> getNewsFeeds(int provider);
@@ -30,6 +31,7 @@ public interface HmiPresenter  {
 	
 	/**
 	 * Salva as configurações que foram alteradas num ecrã especifico (Não implementado ainda)
+	 * @param configs substituem as configurações que já existem
 	 */
 	void setConfigurations(BDAConfigs configs);
 
