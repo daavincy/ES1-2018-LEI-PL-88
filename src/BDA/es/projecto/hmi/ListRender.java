@@ -1,8 +1,8 @@
 package es.projecto.hmi;
 
 import java.awt.Component;
+import java.text.SimpleDateFormat;
 
-import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
@@ -18,14 +18,26 @@ public class ListRender extends ListElements implements ListCellRenderer<NewsHea
 	 */
 	private static final long serialVersionUID = -3164330303698775211L;
 
+	private DetailsViewCallback callback;
+
+	public ListRender(DetailsViewCallback callback) {
+		this.callback = callback;
+	}
+
+	public ListRender() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public Component getListCellRendererComponent(JList<? extends NewsHeaders> list, NewsHeaders value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 
-		getLblLblcontent().setText(value.getSource());
-		getLblPoster().setText(value.getText());
-		getLblLbldate().setText(value.getDate().toString());
 		
+		getLblLblcontent().setText(value.getText());
+		getLblPoster().setText(value.getSource());
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-YYYY HH:mm");
+		getLblLbldate().setText(df.format(value.getDate()));
+
 		switch (value.getProvider()) {
 		case Constants.TWITTER_ID:
 			getLblLogo().setIcon(BDAConfigs.getTwiterLogo(50, 50));
@@ -33,17 +45,19 @@ public class ListRender extends ListElements implements ListCellRenderer<NewsHea
 		default:
 			getLblLogo().setIcon(BDAConfigs.getLogoImage(50, 50));
 		}
-		
-//		setIcon((s.length() > 10) ? longIcon : shortIcon);
-//		if (isSelected) {
-//			setBackground(list.getSelectionBackground());
-//			setForeground(list.getSelectionForeground());
-//		} else {
-//			setBackground(list.getBackground());
-//			setForeground(list.getForeground());
-//		}
-//		setEnabled(list.isEnabled());
-//		setFont(list.getFont());
+
+		if (isSelected) {
+			setBackground(list.getSelectionBackground());
+			setForeground(list.getSelectionForeground());
+			callback.openDetailsView(value);
+		} else {
+			setBackground(list.getBackground());
+			setForeground(list.getForeground());
+//			callback.closeDetailsView();
+		}
+
+		setEnabled(list.isEnabled());
+		setFont(list.getFont());
 		setOpaque(true);
 		return this;
 	}

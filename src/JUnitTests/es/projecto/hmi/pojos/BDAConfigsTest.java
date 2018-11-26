@@ -26,4 +26,19 @@ public class BDAConfigsTest {
 		Assertions.assertTrue(testIcon.getIconHeight()==height && testIcon.getIconWidth()==width);	
 	}
 
+
+
+	@Test
+	public void testGetTwiterLogo() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+	
+	@Test
+	public void testGetMenuImageResized() throws Exception {
+		int width = 120;
+		int height = 120;
+		ImageIcon testIcon = BDAConfigs.getMenuImage(120,120);
+		Assertions.assertTrue(testIcon.getIconHeight()==height && testIcon.getIconWidth()==width);	
+	}
+
 }

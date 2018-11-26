@@ -21,7 +21,7 @@ public class ListElements extends JPanel {
 	private JLabel lblPoster;
 	private JLabel lblLblcontent;
 	private JLabel lblLbldate;
-	private JSeparator separator;
+
 
 	/**
 	 * Create the panel.
@@ -41,7 +41,7 @@ public class ListElements extends JPanel {
 		lblLogo = new JLabel("");
 		add(lblLogo, "1, 2, left, fill");
 		
-		lblPoster = new JLabel("New label");
+		lblPoster = new JLabel("lblPoster");
 		lblPoster.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPoster, "2, 2, fill, fill");
 		

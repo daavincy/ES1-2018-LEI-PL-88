@@ -2,7 +2,11 @@ package es.projecto.hmi;
 
 import java.awt.EventQueue;
 import java.nio.channels.NotYetConnectedException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.UIManager;
@@ -13,94 +17,141 @@ import es.projecto.hmi.pojos.NewsHeaders;
 import es.projecto.hmi.utils.Constants;
 import es.projecto.twitter.conection.TwitterMain;
 
+/**
+ * Classe que implementa o interface que habilita o GUI o acesso aos dados e inicializa a aplicação
+ * @author Elvino Monteiro
+ *
+ */
 public class HMIPresenterImpl implements HmiPresenter {
-	
 
 	private TwitterMain main;
 
 	public HMIPresenterImpl() {
-		main = new TwitterMain(BDAConfigs.twitter_consumerKey, BDAConfigs.twitter_consumerSecret, BDAConfigs.twitter_accessToken, BDAConfigs.twitter_accessTokenSecret);
+		main = new TwitterMain(BDAConfigs.twitter_consumerKey, BDAConfigs.twitter_consumerSecret,
+				BDAConfigs.twitter_accessToken, BDAConfigs.twitter_accessTokenSecret);
 	}
-
-
+	
+	/**
+	 * Obtem uma lista de feeds do twitter que sejam publicados por contas associadas ao iscte
+	 * 
+	 * @return a lista obtida
+	 */
 	private List<NewsHeaders> getTwitterData() {
 		ArrayList<NewsHeaders> result = new ArrayList<NewsHeaders>();
-		main.getStatuses().stream().forEach(t->{
-			result.add(new NewsHeaders(t.getId(),Constants.TWITTER_ID , t.getUser().getScreenName(), t.getText().substring(0, 50),t.getText(), t.getCreatedAt()));
+
+		main.getStatuses().stream().forEach(t -> {
+
+			result.add(new NewsHeaders(t.getId(), Constants.TWITTER_ID,
+					t.getText().length() < 30 ? t.getText() : t.getText().substring(1, 30), t.getText(),
+					t.getUser().getScreenName(), t.getCreatedAt()));
 		});
 		return result;
 	}
-
-	private  List<NewsHeaders> getFacebookData() {
-		throw new NotYetConnectedException();
-		// TODO Auto-generated method stub
+	
+	
+	/**
+	 * Obtem uma lista de feeds do facebook
+	 * 
+	 * @return a lista obtida
+	 */
+	private List<NewsHeaders> getFacebookData() {
+		return new ArrayList<>();
 	}
 
-	@Override
-	public List<NewsHeaders>  getNewsFeeds() {
-		return getTwitterData();	
+	/**
+	 * Obtem uma lista de feeds do email
+	 * 
+	 * @return a lista obtida
+	 */
+	private List<NewsHeaders> getEmailData() {
+		return new ArrayList<>();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#getNewsFeeds()
+	 */
 	@Override
-	public List<NewsHeaders>  getNewsFeeds(int provider) {
-		switch(provider) {
+	public List<NewsHeaders> getNewsFeeds() {
+		List<NewsHeaders> result = getTwitterData();
+		result.addAll(getFacebookData());
+		result.addAll(getEmailData());
+		result.sort((d1,d2)-> d1.getDate().compareTo(d2.getDate()));
+		return result;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#getNewsFeeds(int provider)
+	 */
+	@Override
+	public List<NewsHeaders> getNewsFeeds(int provider) {
+		switch (provider) {
 		case Constants.TWITTER_ID:
 			return getTwitterData();
 		case Constants.FACEBOOK_ID:
+			return getFacebookData();
 		case Constants.EMAIL_ID:
+			return getEmailData();
 		default:
 			return new ArrayList<>();
 		}
-			
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#closeConnections()
+	 */
 	@Override
 	public void closeConnections() {
-		// TODO Auto-generated method stub
-		
+		// TODO close de connections opened during execution.
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#getConfigurations()
+	 */
 	@Override
 	public void getConfigurations() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.projecto.hmi.HmiPresenter#setConfigurations(es.projecto.hmi.pojos.
+	 * BDAConfigs)
+	 */
 	@Override
 	public void setConfigurations(BDAConfigs configs) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	public static void main(String[] args) {
-	    try {
-            // Set cross-platform Java L&F (also called "Metal")
-        UIManager.setLookAndFeel(
-        		"com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-    } 
-    catch (UnsupportedLookAndFeelException e) {
-       // handle exception
-    }
-    catch (ClassNotFoundException e) {
-       // handle exception
-    }
-    catch (InstantiationException e) {
-       // handle exception
-    }
-    catch (IllegalAccessException e) {
-       // handle exception
-    }
 
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						BomDiaAcademia window = new BomDiaAcademia(new HMIPresenterImpl());
-						window.frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
+	}
+
+	public static void main(String[] args) {
+		try {
+			// Set cross-platform Java L&F (also called "Metal")
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (Exception e) {
+			// handle exception
 		}
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BomDiaAcademia window = new BomDiaAcademia(new HMIPresenterImpl());
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 }
