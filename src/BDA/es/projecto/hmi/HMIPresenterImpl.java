@@ -1,17 +1,12 @@
 package es.projecto.hmi;
 
 import java.awt.EventQueue;
-import java.nio.channels.NotYetConnectedException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
+import es.projecto.facebook.conection.FacebookConection;
 import es.projecto.hmi.pojos.BDAConfigs;
 import es.projecto.hmi.pojos.NewsHeaders;
 import es.projecto.hmi.utils.Constants;
@@ -38,13 +33,16 @@ public class HMIPresenterImpl implements HmiPresenter {
 	 */
 	private List<NewsHeaders> getTwitterData() {
 		ArrayList<NewsHeaders> result = new ArrayList<NewsHeaders>();
-
+try {
 		main.getStatuses().stream().forEach(t -> {
 
 			result.add(new NewsHeaders(t.getId(), Constants.TWITTER_ID,
 					t.getText().length() < 30 ? t.getText() : t.getText().substring(1, 30), t.getText(),
 					t.getUser().getScreenName(), t.getCreatedAt()));
 		});
+}catch (Exception e) {
+	System.err.println("twitter limit excedded");
+}
 		return result;
 	}
 	
@@ -55,7 +53,9 @@ public class HMIPresenterImpl implements HmiPresenter {
 	 * @return a lista obtida
 	 */
 	private List<NewsHeaders> getFacebookData() {
-		return new ArrayList<>();
+		FacebookConection fbclient = new FacebookConection("EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL");
+		return fbclient.getUserTimelinePosts();
+		
 	}
 
 	/**
@@ -64,6 +64,10 @@ public class HMIPresenterImpl implements HmiPresenter {
 	 * @return a lista obtida
 	 */
 	private List<NewsHeaders> getEmailData() {
+//		String password = "1234wasd";
+//		String user = "afcmota11@gmail.com";
+//		Email emailClient = new Email(user,password);
+//		return emailClient.getEmails();
 		return new ArrayList<>();
 	}
 	
@@ -74,10 +78,10 @@ public class HMIPresenterImpl implements HmiPresenter {
 	 */
 	@Override
 	public List<NewsHeaders> getNewsFeeds() {
-		List<NewsHeaders> result = getTwitterData();
-		result.addAll(getFacebookData());
+		List<NewsHeaders> result = getFacebookData();
+		result.addAll(getTwitterData());
 		result.addAll(getEmailData());
-		result.sort((d1,d2)-> d1.getDate().compareTo(d2.getDate()));
+		result.sort((d1,d2)-> d2.getDate().compareTo(d1.getDate()));
 		return result;
 	}
 	

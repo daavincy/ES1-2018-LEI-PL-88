@@ -18,6 +18,7 @@ class FacebookConectionTest {
 
 	@Test
 	void test() {
+		FacebookConection fb = new FacebookConection(accessToken);
 		ArrayList<NewsHeaders> result = fb.getUserTimelinePosts();
 		assertNotNull(result);
 	}

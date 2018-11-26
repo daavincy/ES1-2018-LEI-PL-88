@@ -70,7 +70,7 @@ public class FacebookConection {
 					counter5++;
 					//fbOutput.add(aPost);
 					
-					header.add(new NewsHeaders(null, Constants.FACEBOOK_ID, aPost.getDescription() , aPost.getMessage(), aPost.getFrom().toString(), aPost.getCreatedTime()));
+					header.add(new NewsHeaders(null, Constants.FACEBOOK_ID, aPost.getDescription() , aPost.getMessage(), aPost.getId(), aPost.getCreatedTime()));
 					
 				}
 				counterTotal++;

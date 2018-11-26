@@ -1,29 +1,19 @@
 package es.projecto.hmi;
 
-import javax.swing.JPanel;
-
-import java.util.Arrays;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import es.projecto.hmi.pojos.BDAConfigs;
-import es.projecto.hmi.pojos.NewsHeaders;
-
-import javax.swing.BoxLayout;
-import javax.swing.JSeparator;
-import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Color;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.text.SimpleDateFormat;
-
 import javax.swing.Box;
-import javax.swing.UIManager;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class NewsDetails extends JPanel {
@@ -62,8 +52,8 @@ public class NewsDetails extends JPanel {
 		add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton = new JButton("New button");
-		panel_1.add(btnNewButton, BorderLayout.WEST);
+//		JButton btnNewButton = new JButton("New button");
+//		panel_1.add(btnNewButton, BorderLayout.WEST);
 		
 		JButton btnNewButton_1 = new JButton("Interact");
 		btnNewButton_1.setHorizontalAlignment(SwingConstants.RIGHT);

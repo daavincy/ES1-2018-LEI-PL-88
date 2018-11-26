@@ -1,6 +1,7 @@
 package es.projecto.hmi;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Rectangle;
@@ -15,23 +16,16 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import com.sun.javafx.iio.png.PNGIDATChunkInputStream;
 
 import es.projecto.hmi.pojos.BDAConfigs;
 import es.projecto.hmi.pojos.NewsHeaders;
 import es.projecto.hmi.utils.Constants;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.ListSelectionModel;
-import java.awt.Color;
 
 /**
  * Classe responsavel pelo desenho da Janela
@@ -155,20 +149,32 @@ public class BomDiaAcademia {
 		frame.getContentPane().add(pnlNewsSelect, BorderLayout.WEST);
 		frame.getContentPane().add(pnlNewsList, BorderLayout.CENTER);
 		frame.getContentPane().add(pnlDetails, BorderLayout.EAST);
-
-//		
+	
 		// Attributing listeners
 		btnTwitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				populateNewsList(newsList);
+				populateNewsList(newsList, Constants.TWITTER_ID);
 			}
 		});
 
 		btnFacebook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				populateNewsList(newsList, Constants.FACEBOOK_ID);
 			}
 		});
 
+		btnEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				populateNewsList(newsList, Constants.EMAIL_ID);
+			}
+		});
+		
+		btnAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				populateNewsList(newsList);
+			}
+		});
+		
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -182,8 +188,19 @@ public class BomDiaAcademia {
 	 * @param newsList lista de noticias para se colocado na jlist do GUI
 	 */
 	protected void populateNewsList(JList<NewsHeaders> newsList) {
-		List<NewsHeaders> list = presenter.getNewsFeeds(Constants.TWITTER_ID);
+		
+		List<NewsHeaders> list = presenter.getNewsFeeds();
 		DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
+		model.removeAllElements();
+		list.forEach(t -> model.addElement(t));
+
+	}
+	
+	protected void populateNewsList(JList<NewsHeaders> newsList, int provider) {
+		newsList.removeAll();
+		List<NewsHeaders> list = presenter.getNewsFeeds(provider);
+		DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
+		model.removeAllElements();
 		list.forEach(t -> model.addElement(t));
 
 	}
