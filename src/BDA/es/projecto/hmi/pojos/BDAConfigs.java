@@ -50,5 +50,13 @@ public class BDAConfigs {
 	public static ImageIcon getTwiterLogo(int width, int height) {
 		return resizeImage(getTwitterImage(), width, height);
 	}
+	
+	public static ImageIcon getFacebookImage(int width, int height) {
+		return resizeImage(getFacebookImage(), width, height);
+	}
+	
+	public static ImageIcon getEmailImage(int width, int height) {
+		return resizeImage(getEmailImage(), width, height);
+	}
 
 }
