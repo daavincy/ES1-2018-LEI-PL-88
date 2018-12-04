@@ -10,6 +10,7 @@ import es.projecto.facebook.conection.FacebookConection;
 import es.projecto.hmi.pojos.BDAConfigs;
 import es.projecto.hmi.pojos.NewsHeaders;
 import es.projecto.hmi.utils.Constants;
+import es.projecto.hmi.visualeelements.BomDiaAcademia;
 import es.projecto.twitter.conection.TwitterMain;
 
 /**

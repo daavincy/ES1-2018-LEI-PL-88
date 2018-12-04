@@ -1,4 +1,4 @@
-package es.projecto.hmi.controlers;
+package es.projecto.hmi.visualeelements;
 
 import java.awt.BorderLayout;
 

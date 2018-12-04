@@ -1,4 +1,4 @@
-package es.projecto.hmi;
+package es.projecto.hmi.visualeelements;
 
 import java.awt.Component;
 import java.text.SimpleDateFormat;
@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import es.projecto.hmi.controlers.ListElements;
+import es.projecto.hmi.DetailsViewCallback;
 import es.projecto.hmi.pojos.BDAConfigs;
 import es.projecto.hmi.pojos.NewsHeaders;
 import es.projecto.hmi.utils.Constants;

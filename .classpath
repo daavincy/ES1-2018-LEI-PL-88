@@ -7,7 +7,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="CodeInception/|JavaDoc/|ReverseEngeneeringModels/|TestCoverage/|src/BDA/|src/JUnitTests/|src/Resources/" including="*.xml" kind="src" path=""/>
 	<classpathentry kind="src" output="target/test-classes" path="src/JUnitTests">
 		<attributes>
 			<attribute name="test" value="true"/>
