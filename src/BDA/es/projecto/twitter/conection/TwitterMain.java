@@ -82,6 +82,34 @@ public final class TwitterMain  {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param comment
+	 */
+	public void interract(String comment) {
+		
+		twitter = TwitterFactory.getSingleton();
+		Status status = null;
+		System.out.println("Successfully updated the status to [" + status.getText() + "].");
+	}
+	
+	
+	/**
+	 * 
+	 * @param comment
+	 */
+	public void interacteRetwett(String comment) {
+		
+		for(Status s : getStatuses()) {
+			try {
+				twitter.retweetStatus(s.getId());
+			} catch (TwitterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+	
+	}
 
 
 
