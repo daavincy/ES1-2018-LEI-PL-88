@@ -15,11 +15,12 @@ public final class TwitterMain  {
 	
 	 
 	/**
-	 * TwitterMain constructor
-	 * @param consumerKey
-	 * @param consumerSecret
-	 * @param accessToken
-	 * @param accessTokenSecret
+	 * Atravez dos parametros constroi as configurações para login
+	 * 
+	 * @param consumerKey - String
+	 * @param consumerSecret - String
+	 * @param accessToken - String
+	 * @param accessTokenSecret - String
 	 */
 	public TwitterMain(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
 
@@ -44,7 +45,6 @@ public final class TwitterMain  {
 	 * Metodo Devolve um Arraylist, filtrado por ISCTE, com os status do nome do user e respetivo texto do twitt
 	 * 
 	 * @return ArrayList with the filtered statuses
-	 * 
 	 * 
 	 */
 	public ArrayList<Status> getStatuses() {

@@ -9,6 +9,8 @@ import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.FacebookClient.AccessToken;
+import com.restfb.Parameter;
+import com.restfb.types.FacebookType;
 import com.restfb.types.Post;
 import com.restfb.types.User;
 
@@ -24,7 +26,7 @@ public class FacebookConection {
 	
 	/**
 	 * FacebookConnector constructor
-	 * @param accessToken
+	 * @param accessToken - String 
 	 */
 	public FacebookConection(String accessToken) {
 		this.accessToken=accessToken;
@@ -42,10 +44,13 @@ public class FacebookConection {
 	
 	
 	/**
-	 * @return ArrayList with the filtered posts
-	 */
+	 * Metodo que devolve uma ArraList do tipo {@link NewsHeaders} Conecta ha timeLine
+	 * Filtra os posts por ISCTE
+	 * Adicionas a um Array do tipo {@link NewsHeaders} que contem os parametros necessarios.
+	 * 
+	 * @return ArrayList de NewsHeaders com os posts da time line ja filtrados.
+	 */ 
 	public ArrayList<NewsHeaders> getUserTimelinePosts() {
-		
 
 		Connection<Post> result = fbClient.fetchConnection("me/feed",Post.class);
 		System.out.println("\nPosts:");
@@ -80,10 +85,11 @@ public class FacebookConection {
 	
 	
 	/**
-	 * 
+	 * Metodo que publica no feed
 	 */
 	public void sharePost(){
-		
+		fbClient.publish("me/feed", FacebookType.class, Parameter.with("link", "https://www.facebook.com/10152237769155733"));
+
 	}
 	
 }
