@@ -75,7 +75,6 @@ public class FacebookConection {
 					//fbOutput.add(aPost);
 					
 					header.add(new NewsHeaders(null, Constants.FACEBOOK_ID, aPost.getDescription() , aPost.getMessage(), aPost.getId(), aPost.getCreatedTime()));
-					
 				}
 				counterTotal++;
 			}
@@ -87,9 +86,8 @@ public class FacebookConection {
 	/**
 	 * Metodo que publica no feed
 	 */
-	public void sharePost(){
-		fbClient.publish("me/feed", FacebookType.class, Parameter.with("link", "https://www.facebook.com/10152237769155733"));
-
+	public void sharePost(Post post){
+		fbClient.publish("me/feed", FacebookType.class, Parameter.with("link", post.getLink()));
 	}
 	
 }
