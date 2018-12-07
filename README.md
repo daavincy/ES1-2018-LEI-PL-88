@@ -2,7 +2,7 @@
 Repositorio do projecto do grupo 88
 André Mota Nº60396
 Elvino Monteiro Nº24227
-Bernardo Kelly Nº68016
+Bernardo Kelly Nº69016
 
 Instruções da instalação e Execução da aplicação
 
