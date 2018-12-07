@@ -55,7 +55,7 @@ public class BomDiaAcademia {
 	}
 
 	/**
-	 * Cra o layout da aplicação
+	 * Cria o layout da aplicação
 	 */
 	private void initialize() {
 		frame = new JFrame();

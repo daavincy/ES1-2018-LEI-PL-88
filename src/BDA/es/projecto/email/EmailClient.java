@@ -27,8 +27,8 @@ import es.projecto.hmi.utils.Constants;
 
 /**
  *
- * Class Email, Cria uma caixa de emails recebidos atravezz dos dados do utilizador
- * e comtem metodo de envio de emails.
+ * Class Email, Cria uma caixa de emails recebidos atraves dos dados do utilizador
+ * e contem metodo de envio de emails.
  * @author afcma11
  *
  */
@@ -63,7 +63,7 @@ public class EmailClient {
 	}
 	/**
 	 * Metodo devolve um arraylist de emails
-	 * Cria uma caixa de emails recebidos atravez de host pop3
+	 * Cria uma caixa de emails recebidos atraves de host pop3
 	 * 
 	 * @return ArrayList de Email Recebidos
 	 */
@@ -138,10 +138,10 @@ public class EmailClient {
 	}
 	
 	/**
-	 * Metodo que envia mail, atravez de um host SMTP
+	 * Metodo que envia mail, atraves de um host SMTP
 	 * 
 	 * @param to      - Parametro ao qual sera enviado o mail
-	 * @param subject - paramentro referente assunto/titulo do email
+	 * @param subject - Parametro referente assunto/titulo do email
 	 * @param text    - Parametro referente ao Texto do email
 	 */
 	public void sendMail(String to, String subject, String text) {

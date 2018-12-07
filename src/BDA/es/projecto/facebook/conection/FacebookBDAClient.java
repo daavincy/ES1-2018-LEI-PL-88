@@ -21,16 +21,17 @@ public class FacebookBDAClient {
 	private ArrayList<Post> posts;
 	
 	/**
-	 * FacebookConnector constructor
+	 * Construtor do FacebookConnector
+	 * 
 	 * @param accessToken
 	 */
 	public FacebookBDAClient(String accessToken ) {
-		posts=new ArrayList<>();
+		posts = new ArrayList<>();
 		fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);
 	}
 	
 	/**
-	 * @return ArrayList with the filtered posts
+	 * @return ArrayList com os posts filtrados
 	 */
 	public ArrayList<NewsHeaders> getUserTimelinePosts() {
 
@@ -64,7 +65,7 @@ public class FacebookBDAClient {
 	
 	
 	/**
-	 * Main method
+	 * Main metodo
 	 * @param args
 	 */
 	public static void main(String[] args) {

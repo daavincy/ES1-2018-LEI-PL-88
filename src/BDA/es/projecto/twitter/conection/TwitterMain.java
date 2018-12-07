@@ -15,7 +15,7 @@ public final class TwitterMain  {
 	
 	 
 	/**
-	 * Atravez dos parametros constroi as configurações para login
+	 * Atraves dos parametros constroi as configurações para login
 	 * 
 	 * @param consumerKey - String
 	 * @param consumerSecret - String
@@ -42,7 +42,7 @@ public final class TwitterMain  {
 	
 	
 	/**
-	 * Metodo Devolve um Arraylist, filtrado por ISCTE, com os status do nome do user e respetivo texto do twitt
+	 * Metodo Devolve um Arraylist, filtrado por ISCTE, com os status do nome do user e respetivo texto do twitter
 	 * 
 	 * @return ArrayList with the filtered statuses
 	 * 
@@ -84,7 +84,7 @@ public final class TwitterMain  {
 
 	
 	/**
-	 * Metodo faz um Re-tweet, atravez de um id recebido, id esse que representa o post
+	 * Metodo faz um Re-tweet, atraves de um id recebido, id esse que representa o post
 	 * que vai ser "Re-tweetado"
 	 * @param tweetId
 	 */
