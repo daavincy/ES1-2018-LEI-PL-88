@@ -7,7 +7,11 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -20,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -90,6 +95,7 @@ public class BomDiaAcademia {
 
 		// Creating the objects
 		JButton btnMenu = new JButton();
+		btnMenu.setBorder(null);
 		btnMenu.setForeground(Color.CYAN);
 		JLabel lblLogo = new JLabel("");
 		JLabel lblBomDiaAcademia = new JLabel("Bom Dia Academia");
@@ -130,8 +136,10 @@ public class BomDiaAcademia {
 
 					@Override
 					public void interact(String message) {
-						presenter.sendMessage("",item.getId() ==0L?item.getId2():item.getId(), item.getProvider() );
-						JOptionPane.showMessageDialog(frame, "A enviar mensagem :)", "Interagir", JOptionPane.INFORMATION_MESSAGE);
+						presenter.sendMessage("", item.getId() == 0L ? item.getId2() : item.getId(),
+								item.getProvider());
+						JOptionPane.showMessageDialog(frame, "A enviar mensagem :)", "Interagir",
+								JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
 			}
@@ -151,6 +159,34 @@ public class BomDiaAcademia {
 		pnlNewsSelect.add(btnEmail, "1, 6, fill, fill");
 		pnlNewsList.add(lblNews, "1, 1");
 		pnlNewsList.add(scrollPane, "1, 2, fill, fill");
+
+		JLabel lblLoading = new JLabel();
+		lblLoading.setVisible(true);
+		lblLoading.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLoading.setIcon(BDAConfigs.getLoadingImage());
+
+		int[] lastbutton = new int[1];
+		lblLoading.addComponentListener(new ComponentListener() {
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+			}
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+
+
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+			}
+		});
+
 		pnlDetails.add(detailsView, BorderLayout.NORTH);
 
 		frame.getContentPane().add(pnlMenuHolder, BorderLayout.NORTH);
@@ -158,32 +194,39 @@ public class BomDiaAcademia {
 		frame.getContentPane().add(pnlNewsSelect, BorderLayout.WEST);
 		frame.getContentPane().add(pnlNewsList, BorderLayout.CENTER);
 		frame.getContentPane().add(pnlDetails, BorderLayout.EAST);
-	
+
 		// Attributing listeners
 		btnTwitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				populateNewsList(newsList, Constants.TWITTER_ID);
+				scrollPane.setColumnHeaderView(lblLoading);
+				new FetchListWorker(btnTwitter,scrollPane, newsList, Constants.TWITTER_ID).execute();
+
 			}
 		});
 
 		btnFacebook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				populateNewsList(newsList, Constants.FACEBOOK_ID);
+				scrollPane.setColumnHeaderView(lblLoading);
+				new FetchListWorker(btnFacebook,scrollPane, newsList, Constants.FACEBOOK_ID).execute();
+
 			}
 		});
 
 		btnEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				populateNewsList(newsList, Constants.EMAIL_ID);
+				scrollPane.setColumnHeaderView(lblLoading);
+				new FetchListWorker(btnEmail,scrollPane, newsList, Constants.EMAIL_ID).execute();
 			}
 		});
-		
+
 		btnAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				populateNewsList(newsList);
+				
+				scrollPane.setColumnHeaderView(lblLoading);
+				new FetchListWorker(btnAll, scrollPane, newsList, -1).execute();
 			}
 		});
-		
+
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConfigurationsDialog dialog = new ConfigurationsDialog();
@@ -199,27 +242,73 @@ public class BomDiaAcademia {
 	 * 
 	 * @param newsList lista de noticias para se colocado na jlist do GUI
 	 */
-	protected void populateNewsList(JList<NewsHeaders> newsList) {	
+	protected void populateNewsList(JList<NewsHeaders> newsList) {
 		List<NewsHeaders> list = presenter.getNewsFeeds();
 		DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
 		model.removeAllElements();
 		list.forEach(t -> model.addElement(t));
 
 	}
-	
+
 	/**
 	 * Preenche a lista com as noticias obtidas do serviço passado como argumento
 	 * 
 	 * @param newsList lista de noticias para se colocado na jlist do GUI
-	 * @param provider id do provider, constante estatica da classe {@link Constants}
+	 * @param provider id do provider, constante estatica da classe
+	 *                 {@link Constants}
 	 *
 	 */
 	protected void populateNewsList(JList<NewsHeaders> newsList, int provider) {
-		List<NewsHeaders> list = presenter.getNewsFeeds(provider);
-		DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
-		model.removeAllElements();
-		list.forEach(t -> model.addElement(t));
+
 		frame.repaint();
+	}
+
+	class FetchListWorker extends SwingWorker<List<NewsHeaders>, Integer> {
+		int provider;
+		private JList<NewsHeaders> newsList;
+		private JScrollPane scrollPane;
+		private JButton btn;
+
+		/**
+		 * @param btn 
+		 * @param provider
+		 */
+		public FetchListWorker(JButton btn, JScrollPane scrollPane,JList<NewsHeaders> newsList, int provider) {
+			this.scrollPane = scrollPane;
+			this.newsList = newsList;
+			this.provider = provider;
+		}
+
+		@Override
+		protected List<NewsHeaders> doInBackground() throws Exception {
+		
+			List<NewsHeaders> list = new ArrayList<>();
+			if (provider >= 0) {
+				list = presenter.getNewsFeeds(provider);
+			} else {
+				list = presenter.getNewsFeeds();
+			}
+			return list;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see javax.swing.SwingWorker#done()
+		 */
+		@Override
+		protected void done() {
+			DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
+			model.removeAllElements();
+			scrollPane.setColumnHeaderView(null);
+			try {
+				get().forEach(t -> model.addElement(t));
+			} catch (InterruptedException | ExecutionException e) {
+				scrollPane.setColumnHeaderView(null);
+			}
+			super.done();
+		}
+
 	}
 
 }

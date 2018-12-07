@@ -25,6 +25,10 @@ public class BDAConfigs {
 	static ImageIcon getEmailImage() {
 		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource("email.png"));
 	}
+	
+	public static ImageIcon getLoadingImage() {
+		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource("loading.gif"));
+	}
 
 	private static ImageIcon resizeImage(ImageIcon input, int width, int height) {
 		Image image = input.getImage(); // transform it
