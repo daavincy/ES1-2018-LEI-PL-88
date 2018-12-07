@@ -15,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -28,6 +29,7 @@ import es.projecto.config.pojos.BDAConfigs;
 import es.projecto.config.pojos.NewsHeaders;
 import es.projecto.hmi.interfaces.DetailsViewCallback;
 import es.projecto.hmi.interfaces.HmiPresenter;
+import es.projecto.hmi.interfaces.InteractionCallback;
 import es.projecto.hmi.utils.Constants;
 
 /**
@@ -117,13 +119,21 @@ public class BomDiaAcademia {
 			@Override
 			public void openDetailsView(NewsHeaders item) {
 
-				pnlDetails.setPreferredSize(new Dimension(300, pnlNewsSelect.getHeight()));
+				pnlDetails.setPreferredSize(new Dimension(400, pnlNewsSelect.getHeight()));
 				detailsView.setSize(new Dimension(300, pnlNewsSelect.getHeight()));
 				detailsView.setSource(item.getPoster());
 				detailsView.setText(item.getText());
 				detailsView.setDate(item.getDate());
 				newsList.revalidate();
 				pnlDetails.revalidate();
+				detailsView.setCallback(new InteractionCallback() {
+
+					@Override
+					public void interact(String message) {
+						presenter.sendMessage("",item.getId() ==0L?item.getId2():item.getId(), item.getProvider() );
+						JOptionPane.showMessageDialog(frame, "A enviar mensagem :)", "Interagir", JOptionPane.INFORMATION_MESSAGE);
+					}
+				});
 			}
 
 		}));

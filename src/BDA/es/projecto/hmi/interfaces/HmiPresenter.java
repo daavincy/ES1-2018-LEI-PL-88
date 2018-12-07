@@ -22,5 +22,6 @@ public interface HmiPresenter  {
 	 * 
 	 */
 	void closeConnections();
+	void sendMessage(String string, Object postId, int provider);
 
 }

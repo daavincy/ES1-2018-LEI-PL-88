@@ -25,6 +25,7 @@ public class FacebookBDAClient {
 	 * @param accessToken
 	 */
 	public FacebookBDAClient(String accessToken ) {
+		posts=new ArrayList<>();
 		fbClient = new DefaultFacebookClient(accessToken, Version.LATEST);
 	}
 	

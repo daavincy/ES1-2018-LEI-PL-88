@@ -30,9 +30,10 @@ import es.projecto.twitter.conection.TwitterMain;
  */
 public class HMIPresenterImpl implements HmiPresenter {
 
-	private TwitterMain main;
+	private TwitterMain maitwitterClient;
 	private BomDiaAcademia window;
 	private FacebookBDAClient fbclient;
+	private EmailClient emailClient;
 
 	public HMIPresenterImpl() {
 		window = new BomDiaAcademia(this);
@@ -46,7 +47,7 @@ public class HMIPresenterImpl implements HmiPresenter {
 	}
 	
 	/**
-	 * Mostra a janela para interacção do utilizador
+	 * Parar a janela para interacção do utilizador
 	 */
 	public void stop() {
 		window.frame.dispatchEvent(new WindowEvent(window.frame, WindowEvent.WINDOW_CLOSING));
@@ -61,10 +62,10 @@ public class HMIPresenterImpl implements HmiPresenter {
 	private List<NewsHeaders> getTwitterData() {
 		ArrayList<NewsHeaders> result = new ArrayList<NewsHeaders>();
 		TwitterConfigs twitterConfigs = ConfigHelper.getInstance().getConfigurations().gettwitterConfigs();
-		main = new TwitterMain(twitterConfigs.getConsumerKey(), twitterConfigs.getConsumerSecret(),
+		maitwitterClient = new TwitterMain(twitterConfigs.getConsumerKey(), twitterConfigs.getConsumerSecret(),
 				twitterConfigs.getAccessToken(), twitterConfigs.getAccessTokenSecret());
 		try {
-			main.getStatuses().stream().forEach(t -> {
+			maitwitterClient.getStatuses().stream().forEach(t -> {
 
 				result.add(new NewsHeaders(t.getId(), 
 						Constants.TWITTER_ID,
@@ -101,7 +102,7 @@ public class HMIPresenterImpl implements HmiPresenter {
 	 */
 	private List<NewsHeaders> getEmailData() {
 		EmailConfigs emailConfigs = ConfigHelper.getInstance().getConfigurations().getemailConfigs();
-		EmailClient emailClient = new EmailClient();
+		emailClient = new EmailClient();
 		List<NewsHeaders> result=new ArrayList<>();
 				try {
 					emailClient.connect(emailConfigs.getUser(),emailConfigs.getPassword());
@@ -157,6 +158,27 @@ public class HMIPresenterImpl implements HmiPresenter {
 	public void closeConnections() {
 
 	}
+	
+	public BomDiaAcademia getWindow() {
+		return this.window;
+		
+	}
+
+	@Override
+	public void sendMessage(String string,Object postId, int provider) {
+		switch(provider) {
+		case Constants.TWITTER_ID:
+			maitwitterClient.interactRetwett((Long)postId);
+			break;
+		case Constants.FACEBOOK_ID:
+			fbclient.sharePost((String) postId);
+			break;
+		case Constants.EMAIL_ID:
+//			emailClient.sendMail(to, subject, text);
+			default:
+		}
+		
+	}
 
 	public static void main(String[] args) {
 		try {
@@ -179,10 +201,7 @@ public class HMIPresenterImpl implements HmiPresenter {
 		});
 	}
 
-	public BomDiaAcademia getWindow() {
-		return this.window;
-		
-	}
+
 
 
 
