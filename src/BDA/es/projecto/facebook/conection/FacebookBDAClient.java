@@ -18,7 +18,7 @@ public class FacebookBDAClient {
 	
 	
 	private FacebookClient fbClient;
-	
+	private ArrayList<Post> posts;
 	
 	/**
 	 * FacebookConnector constructor
@@ -39,7 +39,8 @@ public class FacebookBDAClient {
 		for (List<Post> page : result) {
 			for (Post aPost : page) {
 				
-				if (aPost.getMessage() != null && aPost.getMessage().contains("ISCTE")) {		
+				if (aPost.getMessage() != null && aPost.getMessage().contains("ISCTE")) {	
+					posts.add(aPost);
 					headers.add(new NewsHeaders(aPost.getId(), Constants.FACEBOOK_ID, aPost.getDescription(), aPost.getMessage(), aPost.getFrom()!=null?aPost.getFrom().getName():"De Mim", aPost.getCreatedTime()));				
 				}
 			}
@@ -47,9 +48,19 @@ public class FacebookBDAClient {
 		return headers;
 	}
 
-	public void sharePost(Post post){
-		fbClient.publish("me/feed", FacebookType.class, Parameter.with("link", post.getLink()));
+	/**
+	 * Atraves do parametro partilha determinado post
+	 * 
+	 * @param postID
+	 */
+	public void sharePost(String postID){
+		for(Post aPost: posts) {
+			if(aPost.getId().equals(postID)) {
+				fbClient.publish("me/feed", FacebookType.class, Parameter.with("link", aPost.getLink()));
+			}
+		}
 	}
+	
 	
 	/**
 	 * Main method
