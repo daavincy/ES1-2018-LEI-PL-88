@@ -238,31 +238,10 @@ public class BomDiaAcademia {
 	}
 
 	/**
-	 * Preenche a lista com as noticias obtidas dos serviços integrados
-	 * 
-	 * @param newsList lista de noticias para se colocado na jlist do GUI
-	 */
-	protected void populateNewsList(JList<NewsHeaders> newsList) {
-		List<NewsHeaders> list = presenter.getNewsFeeds();
-		DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
-		model.removeAllElements();
-		list.forEach(t -> model.addElement(t));
-
-	}
-
-	/**
-	 * Preenche a lista com as noticias obtidas do serviço passado como argumento
-	 * 
-	 * @param newsList lista de noticias para se colocado na jlist do GUI
-	 * @param provider id do provider, constante estatica da classe
-	 *                 {@link Constants}
+	 * Worker responsavel por obter as noticias
+	 * @author Elvino Monteiro(THP)
 	 *
 	 */
-	protected void populateNewsList(JList<NewsHeaders> newsList, int provider) {
-
-		frame.repaint();
-	}
-
 	class FetchListWorker extends SwingWorker<List<NewsHeaders>, Integer> {
 		int provider;
 		private JList<NewsHeaders> newsList;
