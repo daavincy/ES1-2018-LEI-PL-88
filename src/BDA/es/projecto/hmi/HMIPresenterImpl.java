@@ -1,6 +1,7 @@
 package es.projecto.hmi;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class HMIPresenterImpl implements HmiPresenter {
 
 	private TwitterMain main;
 	private BomDiaAcademia window;
+	private FacebookBDAClient fbclient;
 
 	public HMIPresenterImpl() {
 		window = new BomDiaAcademia(this);
@@ -39,8 +41,15 @@ public class HMIPresenterImpl implements HmiPresenter {
 	/**
 	 * Mostra a janela para interacção do utilizador
 	 */
-	protected void start() {
+	public void start() {
 		window.frame.setVisible(true);
+	}
+	
+	/**
+	 * Mostra a janela para interacção do utilizador
+	 */
+	public void stop() {
+		window.frame.dispatchEvent(new WindowEvent(window.frame, WindowEvent.WINDOW_CLOSING));
 	}
 
 	/**
@@ -57,9 +66,12 @@ public class HMIPresenterImpl implements HmiPresenter {
 		try {
 			main.getStatuses().stream().forEach(t -> {
 
-				result.add(new NewsHeaders(t.getId(), Constants.TWITTER_ID,
-						t.getText().length() < 30 ? t.getText() : t.getText().substring(1, 30), t.getText(),
-						t.getUser().getScreenName(), t.getCreatedAt()));
+				result.add(new NewsHeaders(t.getId(), 
+						Constants.TWITTER_ID,
+						null,
+						t.getText(),
+						t.getUser().getScreenName(), 
+						t.getCreatedAt()));
 			});
 		} catch (Exception e) {
 			System.err.println("twitter limit excedded");
@@ -74,7 +86,7 @@ public class HMIPresenterImpl implements HmiPresenter {
 	 * @return a lista obtida
 	 */
 	private List<NewsHeaders> getFacebookData() {
-		FacebookBDAClient fbclient = new FacebookBDAClient(
+		fbclient = new FacebookBDAClient(
 				ConfigHelper.getInstance().getConfigurations().getfacebookConfigs().getAccessToken());
 		List<NewsHeaders> result=fbclient.getUserTimelinePosts();
 		result.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
@@ -133,6 +145,8 @@ public class HMIPresenterImpl implements HmiPresenter {
 			return new ArrayList<>();
 		}
 	}
+	
+	
 
 	/*
 	 * (non-Javadoc)
@@ -141,18 +155,6 @@ public class HMIPresenterImpl implements HmiPresenter {
 	 */
 	@Override
 	public void closeConnections() {
-		// TODO close de connections opened during execution.
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.projecto.hmi.HmiPresenter#getConfigurations()
-	 */
-	@Override
-	public void getConfigurations() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -175,6 +177,11 @@ public class HMIPresenterImpl implements HmiPresenter {
 				}
 			}
 		});
+	}
+
+	public BomDiaAcademia getWindow() {
+		return this.window;
+		
 	}
 
 

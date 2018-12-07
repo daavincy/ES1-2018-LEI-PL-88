@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmailConfigs.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config.pojos</a> &gt; <span class="el_source">EmailConfigs.java</span></div><h1>EmailConfigs.java</h1><pre class="source lang-java linenums">package es.projecto.config.pojos;
+
+import java.io.Serializable;
+import java.lang.reflect.Field;
+
+public class EmailConfigs extends AbstractConfig implements Serializable{
+	public EmailConfigs() {
+<span class="fc" id="L8">		super();</span>
+<span class="fc" id="L9">	}</span>
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6194755115417996443L;
+	private String user;
+	private String password;
+	public EmailConfigs(String user, String password) {
+<span class="fc" id="L17">		super();</span>
+<span class="fc" id="L18">		this.user = user;</span>
+<span class="fc" id="L19">		this.password = password;</span>
+<span class="fc" id="L20">	}</span>
+	/**
+	 * @return the user
+	 */
+	public String getUser() {
+<span class="fc" id="L25">		return user;</span>
+	}
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(String user) {
+<span class="fc" id="L31">		this.user = user;</span>
+<span class="fc" id="L32">	}</span>
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+<span class="fc" id="L37">		return password;</span>
+	}
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+<span class="fc" id="L43">		this.password = password;</span>
+<span class="fc" id="L44">	}</span>
+	@Override
+	protected Field[] getFields() {
+
+<span class="fc" id="L48">		return getClass().getDeclaredFields();</span>
+	}
+
+
+	@Override
+	protected String getFieldValue(String name) {
+		// TODO Auto-generated method stub
+		try {
+<span class="nc" id="L56">			return (String) getClass().getDeclaredField(name).get(this);</span>
+<span class="fc" id="L57">		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {</span>
+<span class="fc" id="L58">			return &quot;&quot;;</span>
+		}
+	}
+	
+	@Override
+	public void setFieldValue(String propertyname, String propertyvalue) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+<span class="fc" id="L64">		getClass().getDeclaredField(propertyname).set(this, propertyvalue);</span>
+		
+<span class="fc" id="L66">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

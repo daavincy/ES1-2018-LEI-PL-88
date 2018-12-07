@@ -56,7 +56,6 @@ public class ConfigHelper {
 	/**
 	 * Metodo criado para obter as configurações
 	 * @return configurations cache object
-	 * @throws IOException se o ficheiro output não existir
 	 */
 	public Configurations getConfigurations() {
 		File output = new File(CONFIG_FILE);

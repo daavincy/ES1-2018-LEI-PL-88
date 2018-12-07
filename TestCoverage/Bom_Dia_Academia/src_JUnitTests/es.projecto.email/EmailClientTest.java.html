@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmailClientTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/JUnitTests</a> &gt; <a href="index.source.html" class="el_package">es.projecto.email</a> &gt; <span class="el_source">EmailClientTest.java</span></div><h1>EmailClientTest.java</h1><pre class="source lang-java linenums">package es.projecto.email;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
+import javax.mail.MessagingException;
+
+import org.junit.jupiter.api.Test;
+
+import es.projecto.config.pojos.NewsHeaders;
+
+<span class="fc" id="L14">public class EmailClientTest {</span>
+	private static final String PASSWORD = &quot;!\&quot;#$1234qwer&quot;;
+	private static final String USER = &quot;testelvino@gmail.com&quot;;
+
+	
+	@Test
+	void testEmailConnection() throws MessagingException {
+<span class="fc" id="L21">		EmailClient emailClient = new EmailClient();</span>
+<span class="fc" id="L22">		emailClient.connect(USER, PASSWORD);</span>
+<span class="fc" id="L23">	}</span>
+	
+	@Test
+	void testGetServerEmails() throws MessagingException {
+<span class="fc" id="L27">		EmailClient emailClient = new EmailClient();</span>
+<span class="fc" id="L28">		emailClient.connect(USER, PASSWORD);</span>
+<span class="fc" id="L29">		List&lt;NewsHeaders&gt; result = emailClient.getEmailMessages(null);</span>
+<span class="fc" id="L30">		assertNotNull(result);</span>
+<span class="fc" id="L31">	}</span>
+	
+	@Test
+	void testSendAndReceiveEmail() throws MessagingException {
+<span class="fc" id="L35">		EmailClient emailClient = new EmailClient();</span>
+<span class="fc" id="L36">		emailClient.connect(USER, PASSWORD);</span>
+<span class="fc" id="L37">		int result = emailClient.getEmailMessages(null).size();</span>
+<span class="fc" id="L38">		emailClient.sendMail(USER, &quot;teste&quot;, &quot;this is a test message&quot;);</span>
+<span class="fc" id="L39">		int result1  = emailClient.getEmailMessages(null).size();</span>
+
+<span class="fc" id="L41">		assertEquals(result+1, result1);</span>
+<span class="fc" id="L42">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

@@ -28,21 +28,30 @@ public class NewsHeaders {
 		super();
 		this.id = id==null?0L:id;
 		this.provider = provider;
-		this.shorttext = shorttext;
+		this.shorttext = shorttext!=null?shorttext:text.length()<=40?text:text.substring(0, 37)+"...";;
 		this.text = text;
 		this.poster = poster;
 		this.date = date==null?new Date():date;
 	}
 
+	/**
+	 * Construtor para receber as noticias.
+	 * @param id2 {@link String} identificador unico da mensagem
+	 * @param provider uma das constantes da class {@link Constants} {@code FACEBOOK_ID, TWITTER_ID ou EMAIL_ID}
+	 * @param shorttext titulo curto ou sujeito da mensagem
+	 * @param text corpo da mensagem
+	 * @param poster remetente da mensagem
+	 * @param date data de recepção da mensagem
+	 */
 
-public NewsHeaders(String id2, int facebookId, String description, String message, String name, Date createdTime) {
+public NewsHeaders(String id2, int provider, String shorttext, String text, String poster, Date date) {
 	this.id2 = id2;
 	this.id=0L;
-	provider = facebookId;
-	shorttext = description!=null?description:message.length()<=40?message:message.substring(0, 37)+"...";
-	text = message;
-	poster = name;
-	date = createdTime;
+	this.provider = provider;
+	this.shorttext = shorttext!=null?shorttext:text.length()<=40?text:text.substring(0, 37)+"...";
+	this.text = text;
+	this.poster = poster;
+	this.date = date;
 }
 
 

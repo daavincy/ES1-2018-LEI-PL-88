@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ListRender.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.visualeelements</a> &gt; <span class="el_source">ListRender.java</span></div><h1>ListRender.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.visualeelements;
+
+import java.awt.Component;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+
+import es.projecto.config.pojos.BDAConfigs;
+import es.projecto.config.pojos.NewsHeaders;
+import es.projecto.hmi.interfaces.DetailsViewCallback;
+import es.projecto.hmi.utils.Constants;
+
+public class ListRender extends ListElements implements ListCellRenderer&lt;NewsHeaders&gt; {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3164330303698775211L;
+
+	private DetailsViewCallback callback;
+
+	
+	/**
+	 * Cria uma nova linha atraves da extensão do layout {@link ListElements}
+	 * @param callback é o objecto utilizado para efectuar acções no Interface gráfico
+	 */
+<span class="fc" id="L29">	public ListRender(DetailsViewCallback callback) {</span>
+<span class="fc" id="L30">		this.callback = callback;</span>
+<span class="fc" id="L31">	}</span>
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.ListCellRenderer#getListCellRendererComponent(JList&lt;? extends NewsHeaders&gt; list, NewsHeaders value, int index, boolean isSelected, boolean cellHasFocus)
+	 */
+	@Override
+	public Component getListCellRendererComponent(JList&lt;? extends NewsHeaders&gt; list, NewsHeaders value, int index,
+			boolean isSelected, boolean cellHasFocus) {
+
+//		        SETICON(BDACONFIGS.GETFACEBOOKIMAGE(50, 50));
+//		        SYSTEM.OUT.PRINTLN(VALUE.GETSHORTTEXT());
+//		        SETTEXT(VALUE.GETSHORTTEXT());
+//		        SETFOREGROUND(COLOR.BLACK);
+		 
+		
+<span class="fc" id="L49">		getLblSmallText().setText(value.getShorttext());</span>
+<span class="fc" id="L50">		getLblPoster().setText(value.getPoster());</span>
+<span class="fc" id="L51">		SimpleDateFormat df = new SimpleDateFormat(&quot;dd-MM-YYYY HH:mm&quot;);</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">		getLblLbldate().setText(value.getDate()==null?df.format(new Date()):df.format(value.getDate()));</span>
+
+<span class="fc bfc" id="L54" title="All 4 branches covered.">		switch (value.getProvider()) {</span>
+		case Constants.TWITTER_ID:
+<span class="fc" id="L56">			getLblLogo().setIcon(BDAConfigs.getTwiterLogo(30, 30));</span>
+<span class="fc" id="L57">			break;</span>
+		case Constants.FACEBOOK_ID:
+<span class="fc" id="L59">			getLblLogo().setIcon(BDAConfigs.getFacebookImage(30, 30));</span>
+<span class="fc" id="L60">			break;</span>
+		case Constants.EMAIL_ID:
+<span class="fc" id="L62">			getLblLogo().setIcon(BDAConfigs.getEmailImage(30, 30));</span>
+<span class="fc" id="L63">			break;</span>
+		default:
+<span class="fc" id="L65">			getLblLogo().setIcon(BDAConfigs.getLogoImage(30, 30));</span>
+		}
+
+<span class="fc bfc" id="L68" title="All 2 branches covered.">		if (isSelected) {</span>
+<span class="fc" id="L69">			setBackground(list.getSelectionBackground());</span>
+<span class="fc" id="L70">			setForeground(list.getSelectionForeground());</span>
+<span class="fc" id="L71">			callback.openDetailsView(value);</span>
+<span class="fc" id="L72">		} else {</span>
+<span class="fc" id="L73">			setBackground(list.getBackground());</span>
+<span class="fc" id="L74">			setForeground(list.getForeground());</span>
+		}
+<span class="fc" id="L76">		setOpaque(true);</span>
+<span class="fc" id="L77">		return this;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

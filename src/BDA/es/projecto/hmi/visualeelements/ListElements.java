@@ -6,9 +6,14 @@ import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
 
+/**
+ * Classe criada com auxilio à representação de noticias em lista
+ * @author Elvino Monteiro(THP)
+ *
+ */
 public class ListElements extends JPanel {
 
 	/**
@@ -22,7 +27,7 @@ public class ListElements extends JPanel {
 
 
 	/**
-	 * Create the panel.
+	 * Cria o painel para mostrar cada linha de noticias
 	 */
 	public ListElements() {
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -49,9 +54,9 @@ public class ListElements extends JPanel {
 		
 		lblSmallText = new JLabel("lblSmallText");
 		lblSmallText.setHorizontalTextPosition(SwingConstants.LEFT);
-		lblSmallText.setVerticalTextPosition(SwingConstants.TOP);
+		lblSmallText.setVerticalTextPosition(SwingConstants.CENTER);
 		lblSmallText.setHorizontalAlignment(SwingConstants.LEFT);
-		add(lblSmallText, "6, 2, left, default");
+		add(lblSmallText, "6, 2, left, center");
 		
 		lblDate = new JLabel("lblDate");
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
@@ -60,28 +65,28 @@ public class ListElements extends JPanel {
 	}
 
 	/**
-	 * @return the lblLogo
+	 * @return a etiqueta do logo para ser preenchida
 	 */
 	public JLabel getLblLogo() {
 		return lblLogo;
 	}
 
 	/**
-	 * @return the lblPoster
+	 * @return a etiqueta da origem para ser preenchida
 	 */
 	public JLabel getLblPoster() {
 		return lblPoster;
 	}
 
 	/**
-	 * @return the lblLblcontent
+	 * @return a etiqueta do assunto para ser preenchida
 	 */
 	public JLabel getLblSmallText() {
 		return lblSmallText;
 	}
 
 	/**
-	 * @return the lblLbldate
+	 * @return a etiqueta da data para ser preenchida
 	 */
 	public JLabel getLblLbldate() {
 		return lblDate;

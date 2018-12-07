@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>NewsDetails.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.visualeelements</a> &gt; <span class="el_source">NewsDetails.java</span></div><h1>NewsDetails.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.visualeelements;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.JScrollPane;
+
+public class NewsDetails extends JPanel {
+
+	public NewsDetails() {
+<span class="fc" id="L26">		super();</span>
+<span class="fc" id="L27">		setBorder(new EmptyBorder(0, 5, 0, 5));</span>
+<span class="fc" id="L28">		setPreferredSize(new Dimension(391, 530));</span>
+<span class="fc" id="L29">		setLayout(new FormLayout(new ColumnSpec[] {</span>
+<span class="fc" id="L30">				ColumnSpec.decode(&quot;1dlu&quot;),</span>
+<span class="fc" id="L31">				ColumnSpec.decode(&quot;max(200dlu;min):grow&quot;),</span>
+<span class="fc" id="L32">				ColumnSpec.decode(&quot;1dlu&quot;),},</span>
+<span class="fc" id="L33">			new RowSpec[] {</span>
+<span class="fc" id="L34">				RowSpec.decode(&quot;28px&quot;),</span>
+<span class="fc" id="L35">				FormSpecs.RELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L36">				RowSpec.decode(&quot;20px&quot;),</span>
+<span class="fc" id="L37">				FormSpecs.RELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L38">				RowSpec.decode(&quot;max(400px;min):grow&quot;),</span>
+<span class="fc" id="L39">				FormSpecs.RELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L40">				RowSpec.decode(&quot;27dlu&quot;),}));</span>
+		
+<span class="fc" id="L42">		JPanel panel = new JPanel();</span>
+<span class="fc" id="L43">		panel.setBorder(null);</span>
+<span class="fc" id="L44">		add(panel, &quot;2, 1, fill, top&quot;);</span>
+<span class="fc" id="L45">		panel.setLayout(new BorderLayout(0, 0));</span>
+		
+<span class="fc" id="L47">		JLabel lblDetalhes = new JLabel(&quot;Detalhes&quot;);</span>
+<span class="fc" id="L48">		lblDetalhes.setBorder(null);</span>
+<span class="fc" id="L49">		lblDetalhes.setPreferredSize(new Dimension(50, 25));</span>
+<span class="fc" id="L50">		lblDetalhes.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L51">		lblDetalhes.setBounds(0, 0, 300, 42);</span>
+<span class="fc" id="L52">		panel.add(lblDetalhes, BorderLayout.NORTH);</span>
+		
+<span class="fc" id="L54">		JSeparator separator = new JSeparator();</span>
+<span class="fc" id="L55">		panel.add(separator, BorderLayout.CENTER);</span>
+		
+<span class="fc" id="L57">		lblSource = new JLabel(&quot;New label&quot;);</span>
+<span class="fc" id="L58">		add(lblSource, &quot;2, 3&quot;);</span>
+<span class="fc" id="L59">		lblSource.setForeground(Color.BLACK);</span>
+<span class="fc" id="L60">		lblSource.setBackground(Color.WHITE);</span>
+		
+<span class="fc" id="L62">		JScrollPane scrollPane = new JScrollPane();</span>
+<span class="fc" id="L63">		add(scrollPane, &quot;2, 5, fill, fill&quot;);</span>
+		
+<span class="fc" id="L65">		lblContent = new JTextArea();</span>
+<span class="fc" id="L66">		lblContent.setLineWrap(true);</span>
+<span class="fc" id="L67">		lblContent.setEditable(false);</span>
+<span class="fc" id="L68">		scrollPane.setViewportView(lblContent);</span>
+		
+<span class="fc" id="L70">		JPanel panel_1 = new JPanel();</span>
+<span class="fc" id="L71">		panel_1.setBackground(Color.WHITE);</span>
+<span class="fc" id="L72">		add(panel_1, &quot;2, 7, fill, bottom&quot;);</span>
+<span class="fc" id="L73">		panel_1.setLayout(new BorderLayout(0, 0));</span>
+		
+//		JButton btnNewButton = new JButton(&quot;New button&quot;);
+//		panel_1.add(btnNewButton, BorderLayout.WEST);
+		
+<span class="fc" id="L78">		JButton btnNewButton_1 = new JButton(&quot;Interact&quot;);</span>
+<span class="fc" id="L79">		btnNewButton_1.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L80">		panel_1.add(btnNewButton_1, BorderLayout.EAST);</span>
+		
+<span class="fc" id="L82">		lblDate = new JLabel(&quot;lbl&lt;date&quot;);</span>
+<span class="fc" id="L83">		lblDate.setHorizontalAlignment(SwingConstants.TRAILING);</span>
+<span class="fc" id="L84">		panel_1.add(lblDate, BorderLayout.WEST);</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L86">	}</span>
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6607733022346261687L;
+	private JLabel lblSource;
+	private JLabel lblDate;
+	private JTextArea lblContent;
+
+	public void setSource(String source) {
+<span class="pc bpc" id="L97" title="2 of 4 branches missed.">		if(source==null||source.contains(&quot;...&quot;)) {</span>
+<span class="nc" id="L98">			lblDate.setText(&quot;&quot;);</span>
+<span class="nc" id="L99">		return;</span>
+		}
+		
+<span class="fc" id="L102">		lblSource.setText(source);</span>
+		
+<span class="fc" id="L104">	}</span>
+	public JLabel getSource() {
+<span class="nc" id="L106">		return lblSource;</span>
+	}
+	public JLabel getDate() {
+<span class="nc" id="L109">		return lblDate;</span>
+	}
+
+	public void setText(String text) {
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">		if(text==null) {</span>
+<span class="nc" id="L114">			lblDate.setText(&quot;NA&quot;);</span>
+<span class="nc" id="L115">		return;</span>
+		}
+<span class="fc" id="L117">		lblContent.setText(text);</span>
+		
+<span class="fc" id="L119">	}</span>
+
+	public void setDate(Date date) {
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">		if(date==null) {</span>
+<span class="nc" id="L123">			lblDate.setText(&quot;NA&quot;);</span>
+<span class="nc" id="L124">		return;</span>
+		}
+<span class="fc" id="L126">SimpleDateFormat df = new SimpleDateFormat(&quot;dd-MM-yyyy HH:MM&quot;);</span>
+<span class="fc" id="L127">lblDate.setText(df.format(date));</span>
+		
+<span class="fc" id="L129">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

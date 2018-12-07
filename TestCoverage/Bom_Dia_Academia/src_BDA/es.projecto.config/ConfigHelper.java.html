@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ConfigHelper.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config</a> &gt; <span class="el_source">ConfigHelper.java</span></div><h1>ConfigHelper.java</h1><pre class="source lang-java linenums">package es.projecto.config;
+
+import java.io.File;
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import es.projecto.config.pojos.Configurations;
+
+public class ConfigHelper {
+//	private static final Logger log = Log
+
+	private ObjectMapper objectMapper;
+	private static ConfigHelper instance;
+	private final String CONFIG_FILE;
+
+	public static ConfigHelper getInstance() {
+<span class="fc bfc" id="L20" title="All 2 branches covered.">		if (instance == null)</span>
+<span class="fc" id="L21">			instance = new ConfigHelper(null);</span>
+<span class="fc" id="L22">		return instance;</span>
+	}
+
+<span class="fc" id="L25">	ConfigHelper(String filename) {</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">		if (filename == null)</span>
+<span class="fc" id="L27">			filename = &quot;configs.xml&quot;;</span>
+
+<span class="fc" id="L29">		CONFIG_FILE = filename;</span>
+<span class="fc" id="L30">		objectMapper = new XmlMapper();</span>
+<span class="fc" id="L31">		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);</span>
+<span class="fc" id="L32">	}</span>
+
+	/**
+	 * Metodo criado para salvar as configurações
+	 * 
+	 * @param configs representa o objecto {@link Configurations} que é usado para
+	 *                passar as configurações para o ficheiro
+	 */
+	public void saveConfigurations(Configurations configs) {
+
+<span class="fc" id="L42">		File output = new File(CONFIG_FILE);</span>
+		try {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">			if (output.exists()) {</span>
+<span class="fc" id="L45">				objectMapper.writeValue(output, configs);</span>
+<span class="fc" id="L46">			} else {</span>
+<span class="fc" id="L47">				output.createNewFile();</span>
+<span class="fc" id="L48">				objectMapper.writeValue(output, configs);</span>
+			}
+<span class="pc" id="L50">		} catch (IOException e) {</span>
+
+<span class="nc" id="L52">			System.err.println(e);</span>
+		}
+<span class="fc" id="L54">	}</span>
+
+	/**
+	 * Metodo criado para obter as configurações
+	 * @return configurations cache object
+	 * @throws IOException se o ficheiro output não existir
+	 */
+	public Configurations getConfigurations() {
+<span class="fc" id="L62">		File output = new File(CONFIG_FILE);</span>
+
+		try {
+<span class="fc" id="L65">			return objectMapper.readValue(output, Configurations.class);</span>
+<span class="nc" id="L66">		} catch (IOException e) {</span>
+<span class="nc" id="L67">			return new Configurations();</span>
+		}
+
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

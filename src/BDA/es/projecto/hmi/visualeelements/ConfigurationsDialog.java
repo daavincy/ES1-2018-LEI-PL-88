@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,8 +15,14 @@ import es.projecto.config.ConfigCallback;
 import es.projecto.config.ConfigHelper;
 import es.projecto.config.pojos.BDAConfigs;
 import es.projecto.config.pojos.Configurations;
-import es.projecto.hmi.utils.Constants;
 
+
+/**
+ * Dialogo para a alteração e introdução de configurações
+ * 
+ * @author Elvino Monteiro(THP)
+ *
+ */
 public class ConfigurationsDialog extends JDialog {
 
 	/**
@@ -28,7 +32,7 @@ public class ConfigurationsDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
+	 * metodo standalone para editar as configurações
 	 */
 	public static void main(String[] args) {
 		try {
@@ -36,12 +40,12 @@ public class ConfigurationsDialog extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 	}
 
 	/**
-	 * Create the dialog.
+	 * Cria o dialogo com base nos objectos das configurações
 	 */
 	public ConfigurationsDialog() {
 		setBounds(100, 100, 574, 254);
@@ -50,66 +54,12 @@ public class ConfigurationsDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		String[] twitterlabels = new String[] { "Consumer Key", "Consumer Secret", "Access Token",
-				"Access Token Secret" };
-		String[] facebooklabels = new String[] { "Access Token", "Client ID", "App ID" };
-		String[] emaillabels = new String[] { "User", "Password" };
 		final Configurations configs;
 
-			configs = ConfigHelper.getInstance().getConfigurations();
+		configs = ConfigHelper.getInstance().getConfigurations();
 
+		JTabbedPane tabbedPane = getTabbedPane(configs);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setSelectedIndex(-1);
-		tabbedPane.addTab("twitter", BDAConfigs.getTwiterLogo(32, 32),
-				new ConfigPanel(configs.gettwitterConfigs().getValuesAsList(), new ConfigCallback() {
-
-					@Override
-					public void updateConfigValue(String propertyname, String propertyvalue) {
-						try {
-							configs.gettwitterConfigs().setFieldValue(propertyname, propertyvalue);
-						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
-								| SecurityException e) {
-							
-							e.printStackTrace();
-						}
-System.err.println(configs);
-					}
-
-				}));
-		tabbedPane.addTab("facebook", BDAConfigs.getFacebookImage(32, 32),
-				new ConfigPanel(configs.getfacebookConfigs().getValuesAsList(), new ConfigCallback() {
-
-					@Override
-					public void updateConfigValue(String propertyname, String propertyvalue) {
-						try {
-							configs.getfacebookConfigs().setFieldValue(propertyname, propertyvalue);
-						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
-								| SecurityException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-					}
-
-				}));
-		tabbedPane.addTab("email", BDAConfigs.getEmailImage(32, 32),
-				new ConfigPanel(configs.getemailConfigs().getValuesAsList(), new ConfigCallback() {
-
-					@Override
-					public void updateConfigValue(String propertyname, String propertyvalue) {
-						try {
-							configs.getemailConfigs().setFieldValue(propertyname, propertyvalue);
-						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
-								| SecurityException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-					}
-
-				}));
-		
 		contentPanel.add(tabbedPane);
 		{
 			JPanel buttonPane = new JPanel();
@@ -134,15 +84,107 @@ System.err.println(configs);
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
-			cancelButton.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-					
-				}
-			});
+				cancelButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+
+					}
+				});
 			}
 		}
+	}
+
+	/**
+	 * Cria o layout tabulado para as configurações
+	 * @param configs para gerar o layout
+	 * @return o layout para alterar as configurações
+	 */
+	JTabbedPane getTabbedPane(final Configurations configs) {
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setSelectedIndex(-1);
+		tabbedPane.addTab("twitter", BDAConfigs.getTwiterLogo(32, 32),
+				new ConfigPanel(configs.gettwitterConfigs().getValuesAsList(), new ConfigCallback() {
+
+					@Override
+					public void updateConfigValue(String propertyname, String propertyvalue) {
+						try {
+							configs.gettwitterConfigs().setFieldValue(propertyname, propertyvalue);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+						}
+						
+					}
+
+					@Override
+					public void removeConfigValue(String string, String text) {
+						try {
+							configs.getfacebookConfigs().setFieldValue(string, text);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+
+						}
+						
+					}
+
+				}));
+		
+		
+		tabbedPane.addTab("facebook", BDAConfigs.getFacebookImage(32, 32),
+				new ConfigPanel(configs.getfacebookConfigs().getValuesAsList(), new ConfigCallback() {
+
+					@Override
+					public void updateConfigValue(String propertyname, String propertyvalue) {
+						try {
+							configs.getfacebookConfigs().setFieldValue(propertyname, propertyvalue);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+
+						}
+
+					}
+
+					@Override
+					public void removeConfigValue(String string, String text) {
+						try {
+							configs.getfacebookConfigs().setFieldValue(string, text);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+
+						}
+						
+					}
+
+				}));
+		
+		
+		tabbedPane.addTab("email", BDAConfigs.getEmailImage(32, 32),
+				new ConfigPanel(configs.getemailConfigs().getValuesAsList(), new ConfigCallback() {
+
+					@Override
+					public void updateConfigValue(String propertyname, String propertyvalue) {
+						try {
+							configs.getemailConfigs().setFieldValue(propertyname, propertyvalue);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+
+						}
+
+					}
+
+					@Override
+					public void removeConfigValue(String string, String text) {
+						try {
+							configs.getfacebookConfigs().setFieldValue(string, text);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+
+						}
+						
+					}
+
+				}));
+		return tabbedPane;
 	}
 }

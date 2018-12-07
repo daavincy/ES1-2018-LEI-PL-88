@@ -1,22 +1,18 @@
 package es.projecto.hmi.visualeelements;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
-
-import es.projecto.config.ConfigCallback;
-import javafx.util.Callback;
-
-import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+import es.projecto.config.ConfigCallback;
 
 public class ConfigPanel extends JPanel {
 	/**
@@ -61,37 +57,38 @@ public class ConfigPanel extends JPanel {
 		
 		
 	int pos[]=new int[] {2};
+	if(list!=null)
 		 list.forEach(t->{
-				JLabel lblConsumerKey = new JLabel(t[0]);
-				add(lblConsumerKey, "2, " + pos[0] + ", right, default");
+				JLabel lblKey = new JLabel(t[0]);
+				add(lblKey, "2, " + pos[0] + ", right, default");
 				
-				JTextField tfConsumerKey;
-				tfConsumerKey = new JTextField();
-				tfConsumerKey.setText(t[1]);
-				add(tfConsumerKey, "4, " + pos[0] + ", fill, default");
-				tfConsumerKey.setColumns(10);
+				JTextField tfvalue;
+				tfvalue = new JTextField();
+				tfvalue.setText(t[1]);
+				add(tfvalue, "4, " + pos[0] + ", fill, default");
+				tfvalue.setColumns(10);
 				pos[0]+=2;
 				
-				tfConsumerKey.getDocument().addDocumentListener(new DocumentListener() {
+				tfvalue.getDocument().addDocumentListener(new DocumentListener() {
 					
 					@Override
 					public void removeUpdate(DocumentEvent e) {
-						configCallback.updateConfigValue(t[0], tfConsumerKey.getText());
-						System.out.println("Updated -> " + tfConsumerKey.getText());
+						configCallback.removeConfigValue(t[0], tfvalue.getText());
+						System.out.println("Updated -> " + tfvalue.getText());
 					}
 					
 					@Override
 					public void insertUpdate(DocumentEvent e) {
-						configCallback.updateConfigValue(t[0], tfConsumerKey.getText());
-						System.out.println("Updated -> " + tfConsumerKey.getText());
+						configCallback.updateConfigValue(t[0], tfvalue.getText());
+						System.out.println("Updated -> " + tfvalue.getText());
 						
 						
 					}
 					
 					@Override
 					public void changedUpdate(DocumentEvent e) {
-						configCallback.updateConfigValue(t[0], tfConsumerKey.getText());
-						System.out.println("Updated -> " + tfConsumerKey.getText());
+						configCallback.updateConfigValue(t[0], tfvalue.getText());
+						System.out.println("Updated -> " + tfvalue.getText());
 						
 					}
 				});
@@ -100,7 +97,7 @@ public class ConfigPanel extends JPanel {
 	
 	
 
-	private RowSpec[] calcRowSpecs(int size) {
+	RowSpec[] calcRowSpecs(int size) {
 		RowSpec[] output = new RowSpec[(size*2)+2];
 		output[0] = FormSpecs.UNRELATED_GAP_ROWSPEC;
 		int j = 1;

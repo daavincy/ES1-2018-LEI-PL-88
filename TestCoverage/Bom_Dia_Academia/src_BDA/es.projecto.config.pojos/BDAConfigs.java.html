@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>BDAConfigs.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config.pojos</a> &gt; <span class="el_source">BDAConfigs.java</span></div><h1>BDAConfigs.java</h1><pre class="source lang-java linenums">package es.projecto.config.pojos;
+
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
+<span class="nc" id="L7">public class BDAConfigs {</span>
+
+	static ImageIcon getLogoImage() {
+<span class="fc" id="L10">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;logo_iscte.png&quot;));</span>
+	}
+
+	static ImageIcon getMenuImage() {
+<span class="fc" id="L14">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;menu.png&quot;));</span>
+	}
+	
+	static ImageIcon getTwitterImage() {
+<span class="fc" id="L18">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;twitter.png&quot;));</span>
+	}
+	
+	static ImageIcon getFacebookImage() {
+<span class="fc" id="L22">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;facebook.png&quot;));</span>
+	}
+	
+	static ImageIcon getEmailImage() {
+<span class="fc" id="L26">		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource(&quot;email.png&quot;));</span>
+	}
+
+	private static ImageIcon resizeImage(ImageIcon input, int width, int height) {
+<span class="fc" id="L30">		Image image = input.getImage(); // transform it</span>
+<span class="fc" id="L31">		Image newimg = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way</span>
+<span class="fc" id="L32">		return new ImageIcon(newimg);</span>
+	}
+
+	public static ImageIcon getLogoImage(int width, int height)  {
+<span class="fc" id="L36">		ImageIcon imageIcon = getLogoImage(); // load the image to a imageIcon</span>
+<span class="fc" id="L37">		return resizeImage(imageIcon, width, height);</span>
+	}
+
+	public static ImageIcon getMenuImage(int width, int height) {
+<span class="fc" id="L41">		ImageIcon imageIcon = getMenuImage(); // load the image to a imageIcon</span>
+<span class="fc" id="L42">		return resizeImage(imageIcon, width, height);</span>
+	}
+
+	public static ImageIcon getTwiterLogo(int width, int height) {
+<span class="fc" id="L46">		return resizeImage(getTwitterImage(), width, height);</span>
+	}
+	
+	public static ImageIcon getFacebookImage(int width, int height) {
+<span class="fc" id="L50">		return resizeImage(getFacebookImage(), width, height);</span>
+	}
+	
+	public static ImageIcon getEmailImage(int width, int height) {
+<span class="fc" id="L54">		return resizeImage(getEmailImage(), width, height);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

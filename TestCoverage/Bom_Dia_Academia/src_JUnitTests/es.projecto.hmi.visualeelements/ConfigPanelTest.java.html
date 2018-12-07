@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ConfigPanelTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/JUnitTests</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.visualeelements</a> &gt; <span class="el_source">ConfigPanelTest.java</span></div><h1>ConfigPanelTest.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.visualeelements;
+
+import java.util.ArrayList;
+
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import es.projecto.config.ConfigCallback;
+
+<span class="fc" id="L13">public class ConfigPanelTest {</span>
+
+	@Test
+	public void testConfigPanel() throws Exception {
+<span class="fc" id="L17">		ArrayList&lt;String[]&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">		String value = &quot;bananas&quot;;</span>
+<span class="fc" id="L19">		String key = &quot;teste&quot;;</span>
+<span class="fc" id="L20">		list.add(new String[] { key, value });</span>
+<span class="fc" id="L21">		ConfigPanel cp = new ConfigPanel(list, new ConfigCallback() {</span>
+
+			@Override
+			public void updateConfigValue(String propertyname, String propertyvalue) {
+<span class="fc" id="L25">				Assertions.assertEquals(key, propertyname);</span>
+<span class="fc" id="L26">				Assertions.assertEquals(value, propertyvalue);</span>
+<span class="fc" id="L27">			}</span>
+
+			@Override
+			public void removeConfigValue(String string, String text) {
+<span class="fc" id="L31">				Assertions.assertEquals(key, string);</span>
+<span class="fc" id="L32">				Assertions.assertEquals(&quot;&quot;, text);</span>
+
+<span class="fc" id="L34">			}</span>
+		});
+		;
+<span class="fc" id="L37">		Assertions.assertEquals(key, ((JLabel) cp.getComponents()[0]).getText());</span>
+<span class="fc" id="L38">		Assertions.assertEquals(value, ((JTextField) cp.getComponents()[1]).getText());</span>
+<span class="fc" id="L39">		((JTextField) cp.getComponents()[1]).setText(value);</span>
+
+<span class="fc" id="L41">	}</span>
+
+	@Test
+	public void testCalcRowSpecs() throws Exception {
+<span class="fc" id="L45">		ConfigPanel cp = new ConfigPanel(null, null);</span>
+<span class="fc" id="L46">		int size = 4;</span>
+<span class="fc" id="L47">		Assertions.assertEquals((size * 2) + 2, cp.calcRowSpecs(size).length);</span>
+<span class="fc" id="L48">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

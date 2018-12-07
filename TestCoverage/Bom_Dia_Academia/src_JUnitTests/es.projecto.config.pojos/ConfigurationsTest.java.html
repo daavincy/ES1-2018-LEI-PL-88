@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ConfigurationsTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/JUnitTests</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config.pojos</a> &gt; <span class="el_source">ConfigurationsTest.java</span></div><h1>ConfigurationsTest.java</h1><pre class="source lang-java linenums">package es.projecto.config.pojos;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
+import es.projecto.config.ConfigHelper;
+import es.projecto.config.pojos.Configurations;
+import es.projecto.config.pojos.EmailConfigs;
+import es.projecto.config.pojos.FacebookConfigs;
+import es.projecto.config.pojos.TwitterConfigs;
+
+<span class="fc" id="L14">public class ConfigurationsTest {</span>
+
+	@Test
+	public void testGetfacebookConfigs() throws Exception {
+<span class="fc" id="L18">		Configurations testelement = initializeConfigs();</span>
+<span class="fc" id="L19">		assertNotNull(testelement.getfacebookConfigs());</span>
+<span class="fc" id="L20">	}</span>
+
+	@Test
+	public void testGettwitterConfigs() throws Exception {
+<span class="fc" id="L24">		Configurations testelement = initializeConfigs();</span>
+<span class="fc" id="L25">		assertNotNull(testelement.gettwitterConfigs());</span>
+<span class="fc" id="L26">	}</span>
+
+	@Test
+	public void testGetemailConfigs() throws Exception {
+<span class="fc" id="L30">		Configurations testelement = initializeConfigs();</span>
+<span class="fc" id="L31">		assertNotNull(testelement.getemailConfigs());</span>
+<span class="fc" id="L32">	}</span>
+
+	@Test
+	public void testSetfacebookConfigs() throws Exception {
+<span class="fc" id="L36">		Configurations testelement = initializeConfigs();</span>
+<span class="fc" id="L37">		FacebookConfigs facebookConfigs = new FacebookConfigs(&quot;teste&quot;, &quot;consumer&quot;, &quot;value3&quot;);</span>
+<span class="fc" id="L38">		testelement.setfacebookConfigs(facebookConfigs);</span>
+
+<span class="fc" id="L40">		assertEquals(facebookConfigs, testelement.getfacebookConfigs());</span>
+<span class="fc" id="L41">	}</span>
+
+	@Test
+	public void testSettwitterConfigs() throws Exception {
+<span class="fc" id="L45">		Configurations testelement = initializeConfigs();</span>
+<span class="fc" id="L46">		TwitterConfigs twitterConfigs = new TwitterConfigs(&quot;teste&quot;, &quot;consumer&quot;, &quot;value3&quot;, &quot;param4&quot;);</span>
+<span class="fc" id="L47">		testelement.settwitterConfigs(twitterConfigs);</span>
+
+<span class="fc" id="L49">		assertEquals(twitterConfigs, testelement.gettwitterConfigs());</span>
+<span class="fc" id="L50">	}</span>
+
+	@Test
+	public void testSetemailConfigs() throws Exception {
+<span class="fc" id="L54">		Configurations testelement = initializeConfigs();</span>
+<span class="fc" id="L55">		EmailConfigs emailConfigs = new EmailConfigs(&quot;teste&quot;, &quot;passwordTeste&quot;);</span>
+<span class="fc" id="L56">		testelement.setemailConfigs(emailConfigs);</span>
+
+<span class="fc" id="L58">		assertEquals(emailConfigs, testelement.getemailConfigs());</span>
+<span class="fc" id="L59">		}</span>
+
+	private Configurations initializeConfigs() {
+<span class="fc" id="L62">		ConfigHelper ch = ConfigHelper.getInstance();</span>
+
+<span class="fc" id="L64">			return ch.getConfigurations();</span>
+	
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

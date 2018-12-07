@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>NewsHeaders.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config.pojos</a> &gt; <span class="el_source">NewsHeaders.java</span></div><h1>NewsHeaders.java</h1><pre class="source lang-java linenums">package es.projecto.config.pojos;
+
+import java.util.Date;
+
+import es.projecto.hmi.utils.Constants;
+
+public class NewsHeaders {
+	private long id;
+	private int provider;
+	private String shorttext;
+	private String text;
+	private String poster;
+	private Date date;
+	private String id2;
+	
+
+
+/**
+ * Construtor para receber as noticias.
+ * @param id {@link Long} identificador unico da mensagem
+ * @param provider uma das constates da class {@link Constants} {@code FACEBOOK_ID, TWITTER_ID ou EMAIL_ID}
+ * @param shorttext titulo curto ou sujeito da mensagem
+ * @param text corpo da mensagem
+ * @param poster remetente da mensagem
+ * @param date data de recepção da mensagem
+ */
+	public NewsHeaders(Long id, int provider, String shorttext, String text, String poster, Date date) {
+<span class="fc" id="L28">		super();</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">		this.id = id==null?0L:id;</span>
+<span class="fc" id="L30">		this.provider = provider;</span>
+<span class="fc bfc" id="L31" title="All 4 branches covered.">		this.shorttext = shorttext!=null?shorttext:text.length()&lt;=40?text:text.substring(0, 37)+&quot;...&quot;;;</span>
+<span class="fc" id="L32">		this.text = text;</span>
+<span class="fc" id="L33">		this.poster = poster;</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">		this.date = date==null?new Date():date;</span>
+<span class="fc" id="L35">	}</span>
+
+	/**
+	 * Construtor para receber as noticias.
+	 * @param id2 {@link String} identificador unico da mensagem
+	 * @param provider uma das constantes da class {@link Constants} {@code FACEBOOK_ID, TWITTER_ID ou EMAIL_ID}
+	 * @param shorttext titulo curto ou sujeito da mensagem
+	 * @param text corpo da mensagem
+	 * @param poster remetente da mensagem
+	 * @param date data de recepção da mensagem
+	 */
+
+<span class="fc" id="L47">public NewsHeaders(String id2, int facebookId, String description, String message, String name, Date createdTime) {</span>
+<span class="fc" id="L48">	this.id2 = id2;</span>
+<span class="fc" id="L49">	this.id=0L;</span>
+<span class="fc" id="L50">	provider = facebookId;</span>
+<span class="pc bpc" id="L51" title="1 of 4 branches missed.">	shorttext = description!=null?description:message.length()&lt;=40?message:message.substring(0, 37)+&quot;...&quot;;</span>
+<span class="fc" id="L52">	text = message;</span>
+<span class="fc" id="L53">	poster = name;</span>
+<span class="fc" id="L54">	date = createdTime;</span>
+<span class="fc" id="L55">}</span>
+
+
+/**
+ * @return the id
+ */
+public long getId() {
+<span class="nc" id="L62">	return id;</span>
+}
+
+
+/**
+ * @return the provider
+ */
+public int getProvider() {
+<span class="fc" id="L70">	return provider;</span>
+}
+
+
+/**
+ * @return the shorttext
+ */
+public String getShorttext() {
+<span class="fc" id="L78">	return shorttext;</span>
+}
+
+
+/**
+ * @return the text
+ */
+public String getText() {
+<span class="fc" id="L86">	return text;</span>
+}
+
+
+/**
+ * @return the poster
+ */
+public String getPoster() {
+<span class="fc" id="L94">	return poster;</span>
+}
+
+
+/**
+ * @return the date
+ */
+public Date getDate() {
+<span class="fc" id="L102">	return date;</span>
+}
+	
+/**
+ * Special id used when the id cannot be of {@link Long} type...
+ * @return the id2
+ */
+public String getId2() {
+<span class="nc" id="L110">	return id2;</span>
+}
+
+
+/**
+ * @param id2 the id2 to set
+ */
+public void setId2(String id2) {
+<span class="nc" id="L118">	this.id2 = id2;</span>
+<span class="nc" id="L119">}</span>
+
+
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TwitterConfigsTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/JUnitTests</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config.pojos</a> &gt; <span class="el_source">TwitterConfigsTest.java</span></div><h1>TwitterConfigsTest.java</h1><pre class="source lang-java linenums">package es.projecto.config.pojos;
+
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+<span class="fc" id="L8">public class TwitterConfigsTest {</span>
+
+
+	@Test
+	public void testTwitterConfigConstructors() throws Exception {
+<span class="fc" id="L13">		TwitterConfigs cfg = new TwitterConfigs();</span>
+<span class="fc" id="L14">		String consumerKey = &quot;consumerKey&quot;;</span>
+<span class="fc" id="L15">		String consumerSecret = &quot;consumerSecret&quot;;</span>
+<span class="fc" id="L16">		String accessToken = &quot;accessToken&quot;;</span>
+<span class="fc" id="L17">		String accessTokenSecret = &quot;accessTokenSecret&quot;;</span>
+<span class="fc" id="L18">		cfg = new TwitterConfigs(consumerKey, consumerSecret, accessToken, accessTokenSecret);</span>
+<span class="fc" id="L19">		Assertions.assertEquals(accessToken, cfg.getAccessToken());</span>
+<span class="fc" id="L20">		Assertions.assertEquals(accessTokenSecret, cfg.getAccessTokenSecret());</span>
+<span class="fc" id="L21">		Assertions.assertEquals(consumerKey, cfg.getConsumerKey());</span>
+<span class="fc" id="L22">		Assertions.assertEquals(consumerSecret, cfg.getConsumerSecret());</span>
+		
+<span class="fc" id="L24">	}</span>
+	
+	@Test
+	public void testSetTwitterConfig() throws Exception {
+<span class="fc" id="L28">		String consumerKey = &quot;consumerKey&quot;;</span>
+<span class="fc" id="L29">		String consumerSecret = &quot;consumerSecret&quot;;</span>
+<span class="fc" id="L30">		String accessToken = &quot;accessToken&quot;;</span>
+<span class="fc" id="L31">		String accessTokenSecret = &quot;accessTokenSecret&quot;;</span>
+<span class="fc" id="L32">		String newconsumerKey = &quot;newconsumerKey&quot;;</span>
+<span class="fc" id="L33">		String newconsumerSecret = &quot;newconsumerSecret&quot;;</span>
+<span class="fc" id="L34">		String newaccessToken = &quot;newaccessToken&quot;;</span>
+<span class="fc" id="L35">		String newaccessTokenSecret = &quot;newaccessTokenSecret&quot;;</span>
+<span class="fc" id="L36">		TwitterConfigs cfg = new TwitterConfigs(consumerKey, consumerSecret, accessToken, accessTokenSecret);</span>
+<span class="fc" id="L37">		cfg.setAccessToken(newaccessToken);</span>
+<span class="fc" id="L38">		cfg.setAccessTokenSecret(newaccessTokenSecret);</span>
+<span class="fc" id="L39">		cfg.setConsumerKey(newconsumerKey);</span>
+<span class="fc" id="L40">		cfg.setConsumerSecret(newconsumerSecret);</span>
+		
+<span class="fc" id="L42">		Assertions.assertEquals(newaccessToken, cfg.getAccessToken());</span>
+<span class="fc" id="L43">		Assertions.assertEquals(newaccessTokenSecret, cfg.getAccessTokenSecret());</span>
+<span class="fc" id="L44">		Assertions.assertEquals(newconsumerKey, cfg.getConsumerKey());</span>
+<span class="fc" id="L45">		Assertions.assertEquals(newconsumerSecret, cfg.getConsumerSecret());</span>
+		
+<span class="fc" id="L47">		Assertions.assertNotEquals(accessToken, cfg.getAccessToken());</span>
+<span class="fc" id="L48">		Assertions.assertNotEquals(accessTokenSecret, cfg.getAccessTokenSecret());</span>
+<span class="fc" id="L49">		Assertions.assertNotEquals(consumerKey, cfg.getConsumerKey());</span>
+<span class="fc" id="L50">		Assertions.assertNotEquals(consumerSecret, cfg.getConsumerSecret());</span>
+		
+<span class="fc" id="L52">	}</span>
+
+	@Test
+	public void testGetFieldValue() throws Exception {
+<span class="fc" id="L56">		String consumerKey = &quot;consumerKey&quot;;</span>
+<span class="fc" id="L57">		String consumerSecret = &quot;consumerSecret&quot;;</span>
+<span class="fc" id="L58">		String accessToken = &quot;accessToken&quot;;</span>
+<span class="fc" id="L59">		String accessTokenSecret = &quot;accessTokenSecret&quot;;</span>
+<span class="fc" id="L60">		TwitterConfigs cfg = new TwitterConfigs(consumerKey, consumerSecret, accessToken, accessTokenSecret);</span>
+		
+<span class="fc" id="L62">		assertNotNull(cfg.getFields());</span>
+		
+<span class="fc" id="L64">		assertNotNull(cfg.getFieldValue(&quot;consumerKey&quot;));</span>
+		
+<span class="fc" id="L66">		Assertions.assertEquals(&quot;&quot;,cfg.getFieldValue(&quot;bananas&quot;));</span>
+		
+<span class="fc" id="L68">	}</span>
+
+	@Test
+	public void testSetFieldValue() throws Exception {
+<span class="fc" id="L72">		String consumerKey = &quot;consumerKey&quot;;</span>
+<span class="fc" id="L73">		String consumerSecret = &quot;consumerSecret&quot;;</span>
+<span class="fc" id="L74">		String accessToken = &quot;accessToken&quot;;</span>
+<span class="fc" id="L75">		String accessTokenSecret = &quot;accessTokenSecret&quot;;</span>
+<span class="fc" id="L76">		TwitterConfigs cfg = new TwitterConfigs(consumerKey, consumerSecret, accessToken, accessTokenSecret);</span>
+<span class="fc" id="L77">		cfg.setFieldValue(consumerSecret, &quot;bananas&quot;);</span>
+<span class="fc" id="L78">		Assertions.assertEquals(&quot;bananas&quot;, cfg.getConsumerSecret());</span>
+<span class="fc" id="L79">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

@@ -2,7 +2,6 @@ package es.projecto.hmi.interfaces;
 
 import java.util.List;
 
-import es.projecto.config.pojos.BDAConfigs;
 import es.projecto.config.pojos.NewsHeaders;
 
 public interface HmiPresenter  {
@@ -23,11 +22,5 @@ public interface HmiPresenter  {
 	 * 
 	 */
 	void closeConnections();
-	
-	/**
-	 * Obtem as configurações para apresentar num ecrã especifico (Não implementado ainda)
-	 */
-	void getConfigurations();
-	
 
 }

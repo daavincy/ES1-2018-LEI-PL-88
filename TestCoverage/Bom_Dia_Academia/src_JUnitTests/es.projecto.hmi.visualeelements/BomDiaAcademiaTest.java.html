@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>BomDiaAcademiaTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/JUnitTests</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.visualeelements</a> &gt; <span class="el_source">BomDiaAcademiaTest.java</span></div><h1>BomDiaAcademiaTest.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.visualeelements;
+
+import static org.junit.Assert.assertNotEquals;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
+import org.junit.jupiter.api.Test;
+
+import es.projecto.config.pojos.NewsHeaders;
+import es.projecto.hmi.HMIPresenterImpl;
+import es.projecto.hmi.utils.Constants;
+
+<span class="fc" id="L14">public class BomDiaAcademiaTest {</span>
+ @Test
+ public void testJlistPopulationForFacebook() {
+<span class="fc" id="L17">	 HMIPresenterImpl presenter = new HMIPresenterImpl();</span>
+<span class="fc" id="L18">	 presenter.start();</span>
+<span class="fc" id="L19">	 JList&lt;NewsHeaders&gt; jl = new JList&lt;&gt;(new DefaultListModel&lt;&gt;());</span>
+<span class="fc" id="L20">	 presenter.getWindow().frame.add(jl);</span>
+<span class="fc" id="L21">	 presenter.getWindow().populateNewsList(jl, Constants.FACEBOOK_ID);</span>
+<span class="fc" id="L22">	 assertNotEquals(0, jl.getModel().getSize());</span>
+<span class="fc" id="L23"> }</span>
+ 
+ @Test
+ public void testJlistPopulationForTwitter() {
+<span class="fc" id="L27">	 HMIPresenterImpl presenter = new HMIPresenterImpl();</span>
+<span class="fc" id="L28">	 presenter.start();</span>
+<span class="fc" id="L29">	 JList&lt;NewsHeaders&gt; jl = new JList&lt;&gt;(new DefaultListModel&lt;&gt;());</span>
+<span class="fc" id="L30">	 presenter.getWindow().frame.add(jl);</span>
+<span class="fc" id="L31">	 presenter.getWindow().populateNewsList(jl, Constants.TWITTER_ID);</span>
+<span class="fc" id="L32">	 assertNotEquals(0, jl.getModel().getSize());</span>
+<span class="fc" id="L33"> }</span>
+ 
+ @Test
+ public void testJlistPopulationForEmail() {
+<span class="fc" id="L37">	 HMIPresenterImpl presenter = new HMIPresenterImpl();</span>
+<span class="fc" id="L38">	 presenter.start();</span>
+<span class="fc" id="L39">	 JList&lt;NewsHeaders&gt; jl = new JList&lt;&gt;(new DefaultListModel&lt;&gt;());</span>
+<span class="fc" id="L40">	 presenter.getWindow().frame.add(jl);</span>
+<span class="fc" id="L41">	 presenter.getWindow().populateNewsList(jl, Constants.EMAIL_ID);</span>
+<span class="fc" id="L42">	 assertNotEquals(0, jl.getModel().getSize());</span>
+<span class="fc" id="L43"> }</span>
+ 
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

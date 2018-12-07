@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ConfigPanel.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.visualeelements</a> &gt; <span class="el_source">ConfigPanel.java</span></div><h1>ConfigPanel.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.visualeelements;
+import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+import es.projecto.config.ConfigCallback;
+
+public class ConfigPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6583760258303213159L;
+	
+	/**
+	 * @param list
+	 * @param configCallback 
+	 */
+<span class="fc" id="L27">	public ConfigPanel(List&lt;String[]&gt; list, ConfigCallback configCallback) {</span>
+		
+		
+//		RowSpec[] rowspecs = calcRowSpecs(headers.size());
+//		
+//		
+//		FormLayout layout = new FormLayout(new ColumnSpec[] {
+//			FormSpecs.UNRELATED_GAP_COLSPEC,
+//			ColumnSpec.decode(&quot;max(72dlu;default)&quot;),
+//			FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
+//			ColumnSpec.decode(&quot;max(207dlu;default):grow&quot;),},
+//				rowspecs);
+		
+<span class="fc" id="L40">		setLayout(new FormLayout(new ColumnSpec[] {</span>
+<span class="fc" id="L41">				FormSpecs.UNRELATED_GAP_COLSPEC,</span>
+<span class="fc" id="L42">				ColumnSpec.decode(&quot;max(72dlu;default)&quot;),</span>
+<span class="fc" id="L43">				FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,</span>
+<span class="fc" id="L44">				ColumnSpec.decode(&quot;max(207dlu;default):grow&quot;),},</span>
+<span class="fc" id="L45">			new RowSpec[] {</span>
+<span class="fc" id="L46">				FormSpecs.UNRELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L47">				FormSpecs.PREF_ROWSPEC,</span>
+<span class="fc" id="L48">				FormSpecs.RELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L49">				FormSpecs.PREF_ROWSPEC,</span>
+<span class="fc" id="L50">				FormSpecs.RELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L51">				FormSpecs.PREF_ROWSPEC,</span>
+<span class="fc" id="L52">				FormSpecs.RELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L53">				FormSpecs.PREF_ROWSPEC,</span>
+<span class="fc" id="L54">				FormSpecs.RELATED_GAP_ROWSPEC,</span>
+<span class="fc" id="L55">				FormSpecs.PREF_ROWSPEC,</span>
+<span class="fc" id="L56">				FormSpecs.UNRELATED_GAP_ROWSPEC,}));</span>
+		
+		
+<span class="fc" id="L59">	int pos[]=new int[] {2};</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">	if(list!=null)</span>
+<span class="fc" id="L61">		 list.forEach(t-&gt;{</span>
+<span class="fc" id="L62">				JLabel lblKey = new JLabel(t[0]);</span>
+<span class="fc" id="L63">				add(lblKey, &quot;2, &quot; + pos[0] + &quot;, right, default&quot;);</span>
+				
+				JTextField tfvalue;
+<span class="fc" id="L66">				tfvalue = new JTextField();</span>
+<span class="fc" id="L67">				tfvalue.setText(t[1]);</span>
+<span class="fc" id="L68">				add(tfvalue, &quot;4, &quot; + pos[0] + &quot;, fill, default&quot;);</span>
+<span class="fc" id="L69">				tfvalue.setColumns(10);</span>
+<span class="fc" id="L70">				pos[0]+=2;</span>
+				
+<span class="fc" id="L72">				tfvalue.getDocument().addDocumentListener(new DocumentListener() {</span>
+					
+					@Override
+					public void removeUpdate(DocumentEvent e) {
+<span class="fc" id="L76">						configCallback.removeConfigValue(t[0], tfvalue.getText());</span>
+<span class="fc" id="L77">						System.out.println(&quot;Updated -&gt; &quot; + tfvalue.getText());</span>
+<span class="fc" id="L78">					}</span>
+					
+					@Override
+					public void insertUpdate(DocumentEvent e) {
+<span class="fc" id="L82">						configCallback.updateConfigValue(t[0], tfvalue.getText());</span>
+<span class="fc" id="L83">						System.out.println(&quot;Updated -&gt; &quot; + tfvalue.getText());</span>
+						
+						
+<span class="fc" id="L86">					}</span>
+					
+					@Override
+					public void changedUpdate(DocumentEvent e) {
+<span class="nc" id="L90">						configCallback.updateConfigValue(t[0], tfvalue.getText());</span>
+<span class="nc" id="L91">						System.out.println(&quot;Updated -&gt; &quot; + tfvalue.getText());</span>
+						
+<span class="nc" id="L93">					}</span>
+				});
+<span class="fc" id="L95">		 });;</span>
+<span class="fc" id="L96">	}</span>
+	
+	
+
+	RowSpec[] calcRowSpecs(int size) {
+<span class="fc" id="L101">		RowSpec[] output = new RowSpec[(size*2)+2];</span>
+<span class="fc" id="L102">		output[0] = FormSpecs.UNRELATED_GAP_ROWSPEC;</span>
+<span class="fc" id="L103">		int j = 1;</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">		for (int i =0; i&lt; size;i++) {</span>
+<span class="fc" id="L105">			output[j] = FormSpecs.PREF_ROWSPEC;</span>
+<span class="fc" id="L106">			j++;</span>
+<span class="fc" id="L107">			output[j] = FormSpecs.RELATED_GAP_ROWSPEC;</span>
+<span class="fc" id="L108">			j++;</span>
+			
+		}
+<span class="fc" id="L111">		output[j] = FormSpecs.UNRELATED_GAP_ROWSPEC;</span>
+<span class="fc" id="L112">		return output;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

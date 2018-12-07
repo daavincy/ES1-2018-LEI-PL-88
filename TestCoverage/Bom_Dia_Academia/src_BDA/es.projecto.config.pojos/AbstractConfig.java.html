@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AbstractConfig.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config.pojos</a> &gt; <span class="el_source">AbstractConfig.java</span></div><h1>AbstractConfig.java</h1><pre class="source lang-java linenums">package es.projecto.config.pojos;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+<span class="fc" id="L10">public abstract class AbstractConfig {</span>
+
+	
+	/**
+	 * Obtem os campos e o valor de cada propriedade
+	 * @return
+	 */
+	@JsonIgnore
+	public List&lt;String[]&gt; getValuesAsList(){
+<span class="fc" id="L19">		Field[] fields = getFields();</span>
+<span class="fc" id="L20">		ArrayList&lt;String[]&gt; output = new ArrayList&lt;String[]&gt;();</span>
+<span class="pc bfc" id="L21" title="All 2 branches covered.">		Arrays.stream(fields).filter(t-&gt;!t.getName().equals(&quot;serialVersionUID&quot;)).forEach(field-&gt;{</span>
+<span class="fc" id="L22">			output.add(new String[] {field.getName(),getFieldValue(field.getName())});</span>
+<span class="fc" id="L23">		});</span>
+<span class="nc" id="L24">		return output;</span>
+		
+	}
+
+	protected abstract Field[] getFields();
+	protected abstract String getFieldValue(String name);
+
+	public abstract void setFieldValue(String propertyname, String propertyvalue)
+			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException;
+		
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

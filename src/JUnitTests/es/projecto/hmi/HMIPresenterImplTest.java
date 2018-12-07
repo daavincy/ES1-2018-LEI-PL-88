@@ -2,19 +2,15 @@ package es.projecto.hmi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.nio.channels.NotYetConnectedException;
-import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JPanel;
 
 import org.junit.jupiter.api.Test;
 
 import es.projecto.config.pojos.NewsHeaders;
 import es.projecto.hmi.utils.Constants;
+import es.projecto.hmi.visualeelements.BomDiaAcademia;
 
 class HMIPresenterImplTest {
 	HMIPresenterImpl s = new HMIPresenterImpl();
@@ -46,6 +42,11 @@ class HMIPresenterImplTest {
 	public void pedirUmaListaComEmail() {
 		List<NewsHeaders> res = s.getNewsFeeds(Constants.EMAIL_ID);
 		assertNotNull(res);
+	}
+
+	@Test
+	public void testGetWindow() throws Exception {
+		assertEquals(BomDiaAcademia.class.getName(), s.getWindow().getClass().getName()); 
 	}
 
 }

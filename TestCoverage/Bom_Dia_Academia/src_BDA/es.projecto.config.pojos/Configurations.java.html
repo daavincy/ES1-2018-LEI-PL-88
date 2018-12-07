@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Configurations.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.config.pojos</a> &gt; <span class="el_source">Configurations.java</span></div><h1>Configurations.java</h1><pre class="source lang-java linenums">package es.projecto.config.pojos;
+
+import java.io.Serializable;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+@JacksonXmlRootElement(localName = &quot;configurations&quot;)
+public class Configurations implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6739376958016621627L;
+
+	public Configurations() {
+<span class="fc" id="L15">		super();</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L17">	}</span>
+
+	FacebookConfigs facebookConfigs;
+	TwitterConfigs twitterConfigs;
+	EmailConfigs emailConfigs;
+	
+	/**
+	 * Construtor para a cache de configurações que supostamente representam um ficheiro XML
+	 * @param facebookConfigs as configurações que dizem respeito ao facebook
+	 * @param twitterConfigs as configurações que dizem respeito ao twitter
+	 * @param emailConfigs as configurações que dizem respeito ao email
+	 */
+	public Configurations(FacebookConfigs facebookConfigs, TwitterConfigs twitterConfigs, EmailConfigs emailConfigs) {
+<span class="fc" id="L30">		super();</span>
+<span class="fc" id="L31">		this.facebookConfigs = facebookConfigs;</span>
+<span class="fc" id="L32">		this.twitterConfigs = twitterConfigs;</span>
+<span class="fc" id="L33">		this.emailConfigs = emailConfigs;</span>
+<span class="fc" id="L34">	}</span>
+
+	/**
+	 * Este metodo obtem o objecto que persiste as configurações do facebook em utilização
+	 * @return o objecto com as configurações
+	 */
+	public FacebookConfigs getfacebookConfigs() {
+<span class="fc" id="L41">		return facebookConfigs;</span>
+	}
+
+	/**
+	 * Metodo que substitui as configurações guardadas em cache pelas novas configurações
+	 * @param facebookConfigs contem as novas configurações
+	 */
+	public void setfacebookConfigs(FacebookConfigs facebookConfigs) {
+<span class="fc" id="L49">		this.facebookConfigs = facebookConfigs;</span>
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * Este metodo obtem o objecto que persiste as configurações do twitter em utilização
+	 * @return o objecto com as configurações
+	 */
+	public TwitterConfigs gettwitterConfigs() {
+<span class="fc" id="L57">		return twitterConfigs;</span>
+	}
+
+	/**
+	 * Metodo que substitui as configurações guardadas em cache pelas novas configurações
+	 * @param twitterConfigs contem as novas configurações
+	 */
+	public void settwitterConfigs(TwitterConfigs twitterConfigs) {
+<span class="fc" id="L65">		this.twitterConfigs = twitterConfigs;</span>
+<span class="fc" id="L66">	}</span>
+
+	/**
+	 * Este metodo obtem o objecto que persiste as configurações do email em utilização
+	 * @return o objecto com as configurações
+	 */
+	public EmailConfigs getemailConfigs() {
+<span class="fc" id="L73">		return emailConfigs;</span>
+	}
+
+	/**
+	 * Metodo que substitui as configurações guardadas em cache pelas novas configurações
+	 * @param emailConfigs contem as novas configurações
+	 */
+	public void setemailConfigs(EmailConfigs emailConfigs) {
+<span class="fc" id="L81">		this.emailConfigs = emailConfigs;</span>
+<span class="fc" id="L82">	}</span>
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">	if(!(obj instanceof Configurations)) return false;</span>
+<span class="fc" id="L90">	Configurations input = (Configurations) obj;</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">	return input.emailConfigs.getUser().equals(this.getemailConfigs().getUser()) &amp;&amp;</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">			input.twitterConfigs.getAccessToken().equals(this.gettwitterConfigs().getAccessToken());</span>
+	}
+
+
+	
+	
+
+	
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

@@ -86,7 +86,7 @@ public final class TwitterMain  {
 	/**
 	 * Metodo faz um Re-tweet, atravez de um id recebido, id esse que representa o post
 	 * que vai ser "Re-tweetado"
-	 * @param tweetID
+	 * @param tweetId
 	 */
 	public void interactRetwett(long tweetId) {
 		Status s;

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>BomDiaAcademia.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.hmi.visualeelements</a> &gt; <span class="el_source">BomDiaAcademia.java</span></div><h1>BomDiaAcademia.java</h1><pre class="source lang-java linenums">package es.projecto.hmi.visualeelements;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
+
+import es.projecto.config.pojos.BDAConfigs;
+import es.projecto.config.pojos.NewsHeaders;
+import es.projecto.hmi.interfaces.DetailsViewCallback;
+import es.projecto.hmi.interfaces.HmiPresenter;
+import es.projecto.hmi.utils.Constants;
+
+/**
+ * Classe responsavel pelo desenho da Janela
+ * 
+ * @author Elvino Monteiro
+ *
+ */
+public class BomDiaAcademia {
+
+	public JFrame frame;
+
+	private HmiPresenter presenter;
+
+	/**
+	 * Cria o ecrã inicial da aplicação
+	 * 
+	 * @param hmiPresenter é usado para obter os dados
+	 */
+<span class="fc" id="L50">	public BomDiaAcademia(HmiPresenter hmiPresenter) {</span>
+<span class="fc" id="L51">		this.presenter = hmiPresenter;</span>
+<span class="fc" id="L52">		initialize();</span>
+<span class="fc" id="L53">	}</span>
+
+	/**
+	 * Cra o layout da aplicação
+	 */
+	private void initialize() {
+<span class="fc" id="L59">		frame = new JFrame();</span>
+<span class="fc" id="L60">		frame.getContentPane().setBounds(new Rectangle(18, 17, 0, 0));</span>
+<span class="fc" id="L61">		frame.setBounds(100, 100, 1025, 680);</span>
+<span class="fc" id="L62">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+
+		// definition of panels
+<span class="fc" id="L65">		JPanel pnlMenuHolder = new JPanel();</span>
+<span class="fc" id="L66">		JPanel pnlMenu = new JPanel();</span>
+<span class="fc" id="L67">		JPanel pnlMenuDevider = new JPanel();</span>
+<span class="fc" id="L68">		JPanel pnlFrameDivider = new JPanel();</span>
+<span class="fc" id="L69">		JPanel pnlNewsSelect = new JPanel();</span>
+<span class="fc" id="L70">		JPanel pnlNewsList = new JPanel();</span>
+<span class="fc" id="L71">		JPanel pnlDetails = new JPanel();</span>
+<span class="fc" id="L72">		JScrollPane scrollPane = new JScrollPane();</span>
+		NewsDetails detailsView;
+
+		// Attribution of layouts
+<span class="fc" id="L76">		frame.getContentPane().setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L77">		pnlMenu.setLayout(new FormLayout(</span>
+<span class="fc" id="L78">				new ColumnSpec[] { ColumnSpec.decode(&quot;10px&quot;), ColumnSpec.decode(&quot;60px&quot;), ColumnSpec.decode(&quot;10px&quot;), },</span>
+<span class="fc" id="L79">				new RowSpec[] { RowSpec.decode(&quot;10px&quot;), RowSpec.decode(&quot;70px&quot;), RowSpec.decode(&quot;10px&quot;), }));</span>
+<span class="fc" id="L80">		pnlMenuHolder.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L81">		pnlNewsSelect.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec.decode(&quot;79px&quot;), },</span>
+<span class="fc" id="L82">				new RowSpec[] { RowSpec.decode(&quot;25px&quot;), RowSpec.decode(&quot;70px&quot;), RowSpec.decode(&quot;6px&quot;),</span>
+<span class="fc" id="L83">						RowSpec.decode(&quot;92px&quot;), RowSpec.decode(&quot;92px&quot;), RowSpec.decode(&quot;92px&quot;), RowSpec.decode(&quot;92px&quot;),</span>
+<span class="fc" id="L84">						RowSpec.decode(&quot;92px&quot;), }));</span>
+<span class="fc" id="L85">		pnlNewsList.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec.decode(&quot;default:grow&quot;), },</span>
+<span class="fc" id="L86">				new RowSpec[] { RowSpec.decode(&quot;25px&quot;), RowSpec.decode(&quot;fill:default:grow&quot;), }));</span>
+<span class="fc" id="L87">		pnlDetails.setLayout(new BorderLayout(0, 0));</span>
+
+		// Creating the objects
+<span class="fc" id="L90">		JButton btnMenu = new JButton();</span>
+<span class="fc" id="L91">		btnMenu.setForeground(Color.CYAN);</span>
+<span class="fc" id="L92">		JLabel lblLogo = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L93">		JLabel lblBomDiaAcademia = new JLabel(&quot;Bom Dia Academia&quot;);</span>
+<span class="fc" id="L94">		JButton btnAll = new JButton(&quot;All&quot;);</span>
+<span class="fc" id="L95">		JButton btnFacebook = new JButton(&quot;Facebook&quot;);</span>
+<span class="fc" id="L96">		JButton btnTwitter = new JButton(&quot;Twitter&quot;);</span>
+<span class="fc" id="L97">		JButton btnEmail = new JButton(&quot;Email&quot;);</span>
+<span class="fc" id="L98">		JList&lt;NewsHeaders&gt; newsList = new JList&lt;NewsHeaders&gt;(new DefaultListModel&lt;NewsHeaders&gt;());</span>
+<span class="fc" id="L99">		newsList.setVisibleRowCount(4);</span>
+<span class="fc" id="L100">		newsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);</span>
+<span class="fc" id="L101">		JLabel lblNews = new JLabel(&quot;News&quot;);</span>
+<span class="fc" id="L102">		detailsView = new NewsDetails();</span>
+
+		// Setting element properties
+<span class="fc" id="L105">		btnMenu.setMargin(new Insets(5, 10, 5, 10));</span>
+<span class="fc" id="L106">		btnMenu.setPreferredSize(new Dimension(60, 70));</span>
+<span class="fc" id="L107">		btnMenu.setIcon(BDAConfigs.getMenuImage(50, 50));</span>
+<span class="fc" id="L108">		lblLogo.setPreferredSize(new Dimension(89, 76));</span>
+<span class="fc" id="L109">		lblLogo.setIcon(BDAConfigs.getLogoImage(89, 76));</span>
+<span class="fc" id="L110">		lblBomDiaAcademia.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L111">		lblBomDiaAcademia.setHorizontalTextPosition(SwingConstants.CENTER);</span>
+<span class="fc" id="L112">		lblNews.setHorizontalTextPosition(SwingConstants.CENTER);</span>
+<span class="fc" id="L113">		lblNews.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L114">		pnlDetails.setPreferredSize(new Dimension(0, 0));</span>
+<span class="fc" id="L115">		newsList.setCellRenderer(new ListRender(new DetailsViewCallback() {</span>
+
+			@Override
+			public void openDetailsView(NewsHeaders item) {
+
+<span class="fc" id="L120">				pnlDetails.setPreferredSize(new Dimension(300, pnlNewsSelect.getHeight()));</span>
+<span class="fc" id="L121">				detailsView.setSize(new Dimension(300, pnlNewsSelect.getHeight()));</span>
+<span class="fc" id="L122">				detailsView.setSource(item.getPoster());</span>
+<span class="fc" id="L123">				detailsView.setText(item.getText());</span>
+<span class="fc" id="L124">				detailsView.setDate(item.getDate());</span>
+<span class="fc" id="L125">				newsList.revalidate();</span>
+<span class="fc" id="L126">				pnlDetails.revalidate();</span>
+<span class="fc" id="L127">			}</span>
+
+		}));
+<span class="fc" id="L130">		scrollPane.setViewportView(newsList);</span>
+
+		// Adding elements to the panels
+<span class="fc" id="L133">		pnlMenu.add(btnMenu, &quot;2, 2, fill, fill&quot;);</span>
+<span class="fc" id="L134">		pnlMenuHolder.add(pnlMenu, BorderLayout.WEST);</span>
+<span class="fc" id="L135">		pnlMenuHolder.add(lblLogo, BorderLayout.EAST);</span>
+<span class="fc" id="L136">		pnlMenuHolder.add(lblBomDiaAcademia, BorderLayout.CENTER);</span>
+<span class="fc" id="L137">		pnlMenuHolder.add(pnlMenuDevider, BorderLayout.SOUTH);</span>
+<span class="fc" id="L138">		pnlNewsSelect.add(btnAll, &quot;1, 2, fill, fill&quot;);</span>
+<span class="fc" id="L139">		pnlNewsSelect.add(btnTwitter, &quot;1, 4, fill, fill&quot;);</span>
+<span class="fc" id="L140">		pnlNewsSelect.add(btnFacebook, &quot;1, 5, fill, fill&quot;);</span>
+<span class="fc" id="L141">		pnlNewsSelect.add(btnEmail, &quot;1, 6, fill, fill&quot;);</span>
+<span class="fc" id="L142">		pnlNewsList.add(lblNews, &quot;1, 1&quot;);</span>
+<span class="fc" id="L143">		pnlNewsList.add(scrollPane, &quot;1, 2, fill, fill&quot;);</span>
+<span class="fc" id="L144">		pnlDetails.add(detailsView, BorderLayout.NORTH);</span>
+
+<span class="fc" id="L146">		frame.getContentPane().add(pnlMenuHolder, BorderLayout.NORTH);</span>
+<span class="fc" id="L147">		frame.getContentPane().add(pnlFrameDivider, BorderLayout.SOUTH);</span>
+<span class="fc" id="L148">		frame.getContentPane().add(pnlNewsSelect, BorderLayout.WEST);</span>
+<span class="fc" id="L149">		frame.getContentPane().add(pnlNewsList, BorderLayout.CENTER);</span>
+<span class="fc" id="L150">		frame.getContentPane().add(pnlDetails, BorderLayout.EAST);</span>
+	
+		// Attributing listeners
+<span class="fc" id="L153">		btnTwitter.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L155">				populateNewsList(newsList, Constants.TWITTER_ID);</span>
+<span class="fc" id="L156">			}</span>
+		});
+
+<span class="fc" id="L159">		btnFacebook.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L161">				populateNewsList(newsList, Constants.FACEBOOK_ID);</span>
+<span class="fc" id="L162">			}</span>
+		});
+
+<span class="fc" id="L165">		btnEmail.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L167">				populateNewsList(newsList, Constants.EMAIL_ID);</span>
+<span class="fc" id="L168">			}</span>
+		});
+		
+<span class="fc" id="L171">		btnAll.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L173">				populateNewsList(newsList);</span>
+<span class="fc" id="L174">			}</span>
+		});
+		
+<span class="fc" id="L177">		btnMenu.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L179">				ConfigurationsDialog dialog = new ConfigurationsDialog();</span>
+<span class="nc" id="L180">				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);</span>
+<span class="nc" id="L181">				dialog.setVisible(true);</span>
+<span class="nc" id="L182">			}</span>
+		});
+
+<span class="fc" id="L185">	}</span>
+
+	/**
+	 * Preenche a lista com as noticias obtidas dos serviços integrados
+	 * 
+	 * @param newsList lista de noticias para se colocado na jlist do GUI
+	 */
+	protected void populateNewsList(JList&lt;NewsHeaders&gt; newsList) {	
+<span class="fc" id="L193">		List&lt;NewsHeaders&gt; list = presenter.getNewsFeeds();</span>
+<span class="fc" id="L194">		DefaultListModel&lt;NewsHeaders&gt; model = (DefaultListModel&lt;NewsHeaders&gt;) newsList.getModel();</span>
+<span class="fc" id="L195">		model.removeAllElements();</span>
+<span class="fc" id="L196">		list.forEach(t -&gt; model.addElement(t));</span>
+
+<span class="fc" id="L198">	}</span>
+	
+	/**
+	 * Preenche a lista com as noticias obtidas do serviço passado como argumento
+	 * 
+	 * @param newsList lista de noticias para se colocado na jlist do GUI
+	 * @param provider id do provider, constante estatica da classe {@link Constants}
+	 *
+	 */
+	protected void populateNewsList(JList&lt;NewsHeaders&gt; newsList, int provider) {
+<span class="fc" id="L208">		List&lt;NewsHeaders&gt; list = presenter.getNewsFeeds(provider);</span>
+<span class="fc" id="L209">		DefaultListModel&lt;NewsHeaders&gt; model = (DefaultListModel&lt;NewsHeaders&gt;) newsList.getModel();</span>
+<span class="fc" id="L210">		model.removeAllElements();</span>
+<span class="fc" id="L211">		list.forEach(t -&gt; model.addElement(t));</span>
+<span class="fc" id="L212">		frame.repaint();</span>
+<span class="fc" id="L213">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmailClient.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (07-Dec-2018 17:30:22)</a> &gt; <a href="../../index.html" class="el_group">Bom_Dia_Academia</a> &gt; <a href="../index.html" class="el_bundle">src/BDA</a> &gt; <a href="index.source.html" class="el_package">es.projecto.email</a> &gt; <span class="el_source">EmailClient.java</span></div><h1>EmailClient.java</h1><pre class="source lang-java linenums">package es.projecto.email;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Address;
+import javax.mail.BodyPart;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
+import com.sun.mail.imap.IMAPFolder;
+
+import es.projecto.config.pojos.NewsHeaders;
+import es.projecto.hmi.utils.Constants;
+
+
+/**
+ *
+ * Class Email, Cria uma caixa de emails recebidos atravezz dos dados do utilizador
+ * e comtem metodo de envio de emails.
+ * @author afcma11
+ *
+ */
+public class EmailClient {
+
+	private IMAPFolder folder;
+	private Session session;
+	private Store store;
+	private String username;
+	private String password;
+
+	/**
+	* 
+	*/
+<span class="fc" id="L46">	public EmailClient() {</span>
+<span class="fc" id="L47">	}</span>
+
+	public void connect(String username, String password) throws MessagingException {
+<span class="fc" id="L50">		this.username = username;</span>
+<span class="fc" id="L51">		this.password = password;</span>
+<span class="fc" id="L52">		Properties props = System.getProperties();</span>
+<span class="fc" id="L53">		props.setProperty(&quot;mail.store.protocol&quot;, &quot;imaps&quot;);</span>
+
+<span class="fc" id="L55">		session = Session.getDefaultInstance(props);</span>
+
+<span class="fc" id="L57">		store = session.getStore(&quot;imaps&quot;);</span>
+<span class="fc" id="L58">		store.connect(&quot;imap.googlemail.com&quot;, username, password);</span>
+<span class="fc" id="L59">		folder = (IMAPFolder) store.getFolder(&quot;inbox&quot;);</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">		if (!folder.isOpen())</span>
+<span class="fc" id="L61">			folder.open(Folder.READ_ONLY);</span>
+
+<span class="fc" id="L63">	}</span>
+	/**
+	 * Metodo devolve um arraylist de emails
+	 * Cria uma caixa de emails recebidos atravez de host pop3
+	 * 
+	 * @return ArrayList de Email Recebidos
+	 */
+	public List&lt;NewsHeaders&gt; getEmailMessages(Properties filter) throws MessagingException {
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">		if (folder == null) {</span>
+<span class="nc" id="L72">			System.err.println(&quot;Client not connected...&quot;);</span>
+		}
+<span class="fc" id="L74">		Message[] messages = folder.getMessages();</span>
+<span class="fc" id="L75">		ArrayList&lt;NewsHeaders&gt; output = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L76">		Arrays.stream(messages).forEach(message -&gt; {</span>
+<span class="fc" id="L77">			Long id = 0L;</span>
+<span class="fc" id="L78">			int provider = Constants.EMAIL_ID;</span>
+			String shorttext;
+			String text;
+			String source;
+			Date date;
+			try {
+<span class="fc" id="L84">				text = getTextFromMessage(message);</span>
+<span class="fc" id="L85">				shorttext = message.getSubject();</span>
+<span class="fc" id="L86">				source = message.getFrom()[0].toString();</span>
+<span class="fc" id="L87">				date = message.getSentDate();</span>
+<span class="fc" id="L88">				NewsHeaders msg = new NewsHeaders(id, provider, shorttext, text, source, date);</span>
+<span class="fc" id="L89">				output.add(msg);</span>
+<span class="pc" id="L90">			} catch (MessagingException | IOException e) {</span>
+			}
+<span class="fc" id="L92">		});</span>
+
+<span class="fc" id="L94">		return output;</span>
+	}
+
+	public void close() {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">		if (store != null) {</span>
+			try {
+<span class="nc bnc" id="L100" title="All 4 branches missed.">				if (folder != null &amp;&amp; folder.isOpen()) {</span>
+<span class="nc" id="L101">					folder.close(true);</span>
+				}
+
+<span class="nc" id="L104">				store.close();</span>
+<span class="nc" id="L105">			} catch (MessagingException e) {</span>
+<span class="nc" id="L106">				e.printStackTrace();</span>
+			}
+		}
+<span class="nc" id="L109">	}</span>
+
+	private String getTextFromMessage(Message message) throws MessagingException, IOException {
+<span class="fc" id="L112">		String result = &quot;&quot;;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">		if (message.isMimeType(&quot;text/plain&quot;)) {</span>
+<span class="fc" id="L114">			result = message.getContent().toString();</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">		} else if (message.isMimeType(&quot;multipart/*&quot;)) {</span>
+<span class="fc" id="L116">			MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();</span>
+<span class="fc" id="L117">			result = getTextFromMimeMultipart(mimeMultipart);</span>
+		}
+<span class="fc" id="L119">		return result;</span>
+	}
+
+	private String getTextFromMimeMultipart(MimeMultipart mimeMultipart) throws MessagingException, IOException {
+<span class="fc" id="L123">		String result = &quot;&quot;;</span>
+<span class="fc" id="L124">		int count = mimeMultipart.getCount();</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">		for (int i = 0; i &lt; count; i++) {</span>
+<span class="fc" id="L126">			BodyPart bodyPart = mimeMultipart.getBodyPart(i);</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">			if (bodyPart.isMimeType(&quot;text/plain&quot;)) {</span>
+<span class="fc" id="L128">				result = result + &quot;\n&quot; + bodyPart.getContent();</span>
+<span class="fc" id="L129">				break; // without break same text appears twice in my tests</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">			} else if (bodyPart.isMimeType(&quot;text/html&quot;)) {</span>
+<span class="nc" id="L131">				String html = (String) bodyPart.getContent();</span>
+<span class="nc" id="L132">				result = result + &quot;\n&quot; + html;</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">			} else if (bodyPart.getContent() instanceof MimeMultipart) {</span>
+<span class="nc" id="L134">				result = result + getTextFromMimeMultipart((MimeMultipart) bodyPart.getContent());</span>
+			}
+		}
+<span class="fc" id="L137">		return result;</span>
+	}
+	
+	/**
+	 * Metodo que envia mail, atravez de um host SMTP
+	 * 
+	 * @param to      - Parametro ao qual sera enviado o mail
+	 * @param subject - paramentro referente assunto/titulo do email
+	 * @param text    - Parametro referente ao Texto do email
+	 */
+	public void sendMail(String to, String subject, String text) {
+
+		
+<span class="fc" id="L150">		Properties props = System.getProperties();</span>
+
+<span class="fc" id="L152">		props.put(&quot;mail.smtp.starttls.enable&quot;, &quot;true&quot;);</span>
+<span class="fc" id="L153">		props.put(&quot;mail.smtp.host&quot;, &quot;smtp.gmail.com&quot;);</span>
+<span class="fc" id="L154">		props.put(&quot;mail.smtp.port&quot;, &quot;587&quot;);</span>
+<span class="fc" id="L155">		props.put(&quot;mail.smtp.auth&quot;, &quot;true&quot;);</span>
+<span class="fc" id="L156">		props.put(&quot;mail.smtp.strattls.required&quot;, &quot;true&quot;);</span>
+
+<span class="fc" id="L158">		Session mailSession = Session.getDefaultInstance(props);</span>
+		try {
+<span class="fc" id="L160">			Message msg = new MimeMessage(mailSession);</span>
+<span class="fc" id="L161">			msg.setFrom(new InternetAddress(username));</span>
+<span class="fc" id="L162">			InternetAddress address = (new InternetAddress(to));</span>
+<span class="fc" id="L163">			msg.setRecipient(Message.RecipientType.TO, address);</span>
+<span class="fc" id="L164">			msg.setReplyTo(new Address[] {address});</span>
+<span class="fc" id="L165">			msg.setSubject(subject);</span>
+<span class="fc" id="L166">			msg.setSentDate(new Date());</span>
+<span class="fc" id="L167">			msg.setText(text);</span>
+
+<span class="fc" id="L169">			Transport transport = mailSession.getTransport(&quot;smtp&quot;);</span>
+<span class="fc" id="L170">			transport.connect(username, password);</span>
+<span class="fc" id="L171">			transport.sendMessage(msg, msg.getAllRecipients());</span>
+<span class="fc" id="L172">			transport.close();</span>
+<span class="fc" id="L173">			System.out.println(&quot;message sent&quot;);</span>
+<span class="pc" id="L174">		} catch (Exception e) {</span>
+			// TODO: handle exception
+		}
+<span class="fc" id="L177">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>Merged (07-Dec-2018 17:30:22)</div></body></html>
