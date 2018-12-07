@@ -2,25 +2,22 @@ package es.projecto.hmi.visualeelements;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-import es.projecto.common.ConfigHelper;
-import es.projecto.hmi.pojos.BDAConfigs;
+import es.projecto.config.ConfigCallback;
+import es.projecto.config.ConfigHelper;
+import es.projecto.config.pojos.BDAConfigs;
+import es.projecto.config.pojos.Configurations;
 import es.projecto.hmi.utils.Constants;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTabbedPane;
 
 public class ConfigurationsDialog extends JDialog {
 
@@ -52,16 +49,67 @@ public class ConfigurationsDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		String[] twitterlabels = new String[]{"Consumer Key","Consumer Secret","Access Token","Access Token Secret"};
-		
-		String[] facebooklabels = new String[]{"Consumer Key","Consumer Secret","Access Token"};
-		
+
+		String[] twitterlabels = new String[] { "Consumer Key", "Consumer Secret", "Access Token",
+				"Access Token Secret" };
+		String[] facebooklabels = new String[] { "Access Token", "Client ID", "App ID" };
+		String[] emaillabels = new String[] { "User", "Password" };
+		final Configurations configs;
+
+			configs = ConfigHelper.getInstance().getConfigurations();
+
+
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setSelectedIndex(-1);
-		tabbedPane.addTab("twitter", BDAConfigs.getTwiterLogo(32, 32), new TwitterConfigPanel(Arrays.asList(twitterlabels)));
-		tabbedPane.addTab("facebook", BDAConfigs.getFacebookImage(32, 32), new TwitterConfigPanel(Arrays.asList(facebooklabels)));
-		tabbedPane.addTab("email", BDAConfigs.getEmailImage(32, 32), new JPanel());
+		tabbedPane.addTab("twitter", BDAConfigs.getTwiterLogo(32, 32),
+				new ConfigPanel(configs.gettwitterConfigs().getValuesAsList(), new ConfigCallback() {
+
+					@Override
+					public void updateConfigValue(String propertyname, String propertyvalue) {
+						try {
+							configs.gettwitterConfigs().setFieldValue(propertyname, propertyvalue);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+							
+							e.printStackTrace();
+						}
+System.err.println(configs);
+					}
+
+				}));
+		tabbedPane.addTab("facebook", BDAConfigs.getFacebookImage(32, 32),
+				new ConfigPanel(configs.getfacebookConfigs().getValuesAsList(), new ConfigCallback() {
+
+					@Override
+					public void updateConfigValue(String propertyname, String propertyvalue) {
+						try {
+							configs.getfacebookConfigs().setFieldValue(propertyname, propertyvalue);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+
+				}));
+		tabbedPane.addTab("email", BDAConfigs.getEmailImage(32, 32),
+				new ConfigPanel(configs.getemailConfigs().getValuesAsList(), new ConfigCallback() {
+
+					@Override
+					public void updateConfigValue(String propertyname, String propertyvalue) {
+						try {
+							configs.getemailConfigs().setFieldValue(propertyname, propertyvalue);
+						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
+								| SecurityException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+
+				}));
+		
 		contentPanel.add(tabbedPane);
 		{
 			JPanel buttonPane = new JPanel();
@@ -70,6 +118,15 @@ public class ConfigurationsDialog extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.setActionCommand("OK");
+
+				okButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ConfigHelper.getInstance().saveConfigurations(configs);
+						dispose();
+					}
+				});
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
@@ -77,6 +134,14 @@ public class ConfigurationsDialog extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
+			cancelButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					
+				}
+			});
 			}
 		}
 	}

@@ -10,7 +10,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import es.projecto.facebook.conection.FacebookConection;
+import es.projecto.facebook.conection.FacebookBDAClient;
 import es.projecto.twitter.conection.TwitterMain;
 
 public class ReadXML {
@@ -44,7 +44,7 @@ public class ReadXML {
 						Element eElement = (Element) nNode;
 						
 						
-						FacebookConection fc = new FacebookConection(eElement.getElementsByTagName("accessToken").item(0)
+						FacebookBDAClient fc = new FacebookBDAClient(eElement.getElementsByTagName("accessToken").item(0)
 								.getTextContent());
 						
 						System.out.println(fc);

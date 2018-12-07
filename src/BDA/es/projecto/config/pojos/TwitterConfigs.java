@@ -1,8 +1,9 @@
-package es.projecto.hmi.pojos;
+package es.projecto.config.pojos;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
-public class TwitterConfigs implements Serializable{
+public class TwitterConfigs extends AbstractConfig implements Serializable{
 	/**
 	 * 
 	 */
@@ -81,6 +82,26 @@ public class TwitterConfigs implements Serializable{
 		this.accessTokenSecret = accessTokenSecret;
 	}
 
-	
+
+	@Override
+	protected Field[] getFields() {
+
+		return getClass().getDeclaredFields();
+	}
+
+	@Override
+	protected String getFieldValue(String name) {
+		// TODO Auto-generated method stub
+		try {
+			return (String) getClass().getDeclaredField(name).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+			return "";
+		}
+	}
+
+	public void setFieldValue(String propertyname, String propertyvalue) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		getClass().getDeclaredField(propertyname).set(this, propertyvalue);
+		
+	}
 	
 }

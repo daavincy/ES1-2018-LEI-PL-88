@@ -1,4 +1,4 @@
-package es.projecto.common;
+package es.projecto.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import es.projecto.hmi.pojos.Configurations;
+import es.projecto.config.pojos.Configurations;
 
 public class ConfigHelper {
 //	private static final Logger log = Log
@@ -58,10 +58,14 @@ public class ConfigHelper {
 	 * @return configurations cache object
 	 * @throws IOException se o ficheiro output não existir
 	 */
-	public Configurations getConfigurations() throws IOException {
+	public Configurations getConfigurations() {
 		File output = new File(CONFIG_FILE);
 
-		return objectMapper.readValue(output, Configurations.class);
+		try {
+			return objectMapper.readValue(output, Configurations.class);
+		} catch (IOException e) {
+			return new Configurations();
+		}
 
 	}
 }

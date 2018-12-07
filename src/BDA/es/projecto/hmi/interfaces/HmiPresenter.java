@@ -1,9 +1,9 @@
-package es.projecto.hmi;
+package es.projecto.hmi.interfaces;
 
 import java.util.List;
 
-import es.projecto.hmi.pojos.BDAConfigs;
-import es.projecto.hmi.pojos.NewsHeaders;
+import es.projecto.config.pojos.BDAConfigs;
+import es.projecto.config.pojos.NewsHeaders;
 
 public interface HmiPresenter  {
 	/**
@@ -29,10 +29,5 @@ public interface HmiPresenter  {
 	 */
 	void getConfigurations();
 	
-	/**
-	 * Salva as configurações que foram alteradas num ecrã especifico (Não implementado ainda)
-	 * @param configs substituem as configurações que já existem
-	 */
-	void setConfigurations(BDAConfigs configs);
 
 }

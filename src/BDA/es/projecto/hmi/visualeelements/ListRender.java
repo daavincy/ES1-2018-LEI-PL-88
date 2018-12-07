@@ -2,13 +2,14 @@ package es.projecto.hmi.visualeelements;
 
 import java.awt.Component;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import es.projecto.hmi.DetailsViewCallback;
-import es.projecto.hmi.pojos.BDAConfigs;
-import es.projecto.hmi.pojos.NewsHeaders;
+import es.projecto.config.pojos.BDAConfigs;
+import es.projecto.config.pojos.NewsHeaders;
+import es.projecto.hmi.interfaces.DetailsViewCallback;
 import es.projecto.hmi.utils.Constants;
 
 public class ListRender extends ListElements implements ListCellRenderer<NewsHeaders> {
@@ -39,18 +40,29 @@ public class ListRender extends ListElements implements ListCellRenderer<NewsHea
 	public Component getListCellRendererComponent(JList<? extends NewsHeaders> list, NewsHeaders value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 
+//		        SETICON(BDACONFIGS.GETFACEBOOKIMAGE(50, 50));
+//		        SYSTEM.OUT.PRINTLN(VALUE.GETSHORTTEXT());
+//		        SETTEXT(VALUE.GETSHORTTEXT());
+//		        SETFOREGROUND(COLOR.BLACK);
+		 
 		
-		getLblLblcontent().setText(value.getText());
-		getLblPoster().setText(value.getSource());
+		getLblSmallText().setText(value.getShorttext());
+		getLblPoster().setText(value.getPoster());
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-YYYY HH:mm");
-		getLblLbldate().setText(df.format(value.getDate()));
+		getLblLbldate().setText(value.getDate()==null?df.format(new Date()):df.format(value.getDate()));
 
 		switch (value.getProvider()) {
 		case Constants.TWITTER_ID:
-			getLblLogo().setIcon(BDAConfigs.getTwiterLogo(50, 50));
+			getLblLogo().setIcon(BDAConfigs.getTwiterLogo(30, 30));
+			break;
+		case Constants.FACEBOOK_ID:
+			getLblLogo().setIcon(BDAConfigs.getFacebookImage(30, 30));
+			break;
+		case Constants.EMAIL_ID:
+			getLblLogo().setIcon(BDAConfigs.getEmailImage(30, 30));
 			break;
 		default:
-			getLblLogo().setIcon(BDAConfigs.getLogoImage(50, 50));
+			getLblLogo().setIcon(BDAConfigs.getLogoImage(30, 30));
 		}
 
 		if (isSelected) {
@@ -60,11 +72,7 @@ public class ListRender extends ListElements implements ListCellRenderer<NewsHea
 		} else {
 			setBackground(list.getBackground());
 			setForeground(list.getForeground());
-//			callback.closeDetailsView();
 		}
-
-		setEnabled(list.isEnabled());
-		setFont(list.getFont());
 		setOpaque(true);
 		return this;
 	}

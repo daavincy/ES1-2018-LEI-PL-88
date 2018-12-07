@@ -1,4 +1,4 @@
-package es.projecto.hmi.pojos;
+package es.projecto.config.pojos;
 
 import java.io.Serializable;
 

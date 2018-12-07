@@ -71,8 +71,16 @@
 			<version>1.9.0</version>
 		</dependency>
 
-
-
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>3.141.59</version>
+    </dependency> 
+  <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-chrome-driver</artifactId>
+        <version>3.141.59</version>
+    </dependency>  
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>

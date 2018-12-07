@@ -1,4 +1,4 @@
-package es.projecto.common;
+package es.projecto.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -8,10 +8,11 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-import es.projecto.hmi.pojos.Configurations;
-import es.projecto.hmi.pojos.EmailConfigs;
-import es.projecto.hmi.pojos.FacebookConfigs;
-import es.projecto.hmi.pojos.TwitterConfigs;
+import es.projecto.config.ConfigHelper;
+import es.projecto.config.pojos.Configurations;
+import es.projecto.config.pojos.EmailConfigs;
+import es.projecto.config.pojos.FacebookConfigs;
+import es.projecto.config.pojos.TwitterConfigs;
 
 public class ConfigHelperTest {
 

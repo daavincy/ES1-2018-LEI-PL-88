@@ -24,11 +24,10 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
-import es.projecto.hmi.DetailsViewCallback;
-import es.projecto.hmi.HmiPresenter;
-import es.projecto.hmi.NewsDetails;
-import es.projecto.hmi.pojos.BDAConfigs;
-import es.projecto.hmi.pojos.NewsHeaders;
+import es.projecto.config.pojos.BDAConfigs;
+import es.projecto.config.pojos.NewsHeaders;
+import es.projecto.hmi.interfaces.DetailsViewCallback;
+import es.projecto.hmi.interfaces.HmiPresenter;
 import es.projecto.hmi.utils.Constants;
 
 /**
@@ -120,17 +119,13 @@ public class BomDiaAcademia {
 
 				pnlDetails.setPreferredSize(new Dimension(300, pnlNewsSelect.getHeight()));
 				detailsView.setSize(new Dimension(300, pnlNewsSelect.getHeight()));
-				detailsView.setSource(item.getSource());
+				detailsView.setSource(item.getPoster());
 				detailsView.setText(item.getText());
 				detailsView.setDate(item.getDate());
+				newsList.revalidate();
 				pnlDetails.revalidate();
 			}
 
-			@Override
-			public void closeDetailsView() {
-				pnlDetails.setPreferredSize(new Dimension(0, pnlNewsSelect.getHeight()));
-
-			}
 		}));
 		scrollPane.setViewportView(newsList);
 
@@ -194,8 +189,7 @@ public class BomDiaAcademia {
 	 * 
 	 * @param newsList lista de noticias para se colocado na jlist do GUI
 	 */
-	protected void populateNewsList(JList<NewsHeaders> newsList) {
-		
+	protected void populateNewsList(JList<NewsHeaders> newsList) {	
 		List<NewsHeaders> list = presenter.getNewsFeeds();
 		DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
 		model.removeAllElements();
@@ -203,13 +197,19 @@ public class BomDiaAcademia {
 
 	}
 	
+	/**
+	 * Preenche a lista com as noticias obtidas do serviço passado como argumento
+	 * 
+	 * @param newsList lista de noticias para se colocado na jlist do GUI
+	 * @param provider id do provider, constante estatica da classe {@link Constants}
+	 *
+	 */
 	protected void populateNewsList(JList<NewsHeaders> newsList, int provider) {
-		newsList.removeAll();
 		List<NewsHeaders> list = presenter.getNewsFeeds(provider);
 		DefaultListModel<NewsHeaders> model = (DefaultListModel<NewsHeaders>) newsList.getModel();
 		model.removeAllElements();
 		list.forEach(t -> model.addElement(t));
-
+		frame.repaint();
 	}
 
 }

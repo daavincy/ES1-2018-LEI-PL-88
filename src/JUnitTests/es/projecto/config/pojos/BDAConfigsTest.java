@@ -1,10 +1,12 @@
-package es.projecto.hmi.pojos;
+package es.projecto.config.pojos;
 
 
 import javax.swing.ImageIcon;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import es.projecto.config.pojos.BDAConfigs;
 
 
 public class BDAConfigsTest {

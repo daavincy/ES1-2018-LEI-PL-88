@@ -1,15 +1,10 @@
-package es.projecto.hmi.pojos;
+package es.projecto.config.pojos;
 
 import java.awt.Image;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class BDAConfigs {
-	public static String twitter_consumerKey = "WwkVm3nKOV5OF7b1iSkLqPE6w";
-	public static String twitter_consumerSecret = "DPKF4GyPbtgB3tO5RdnyOW2Ad03vq1V0fYZxorvTlakj8IjuAF";
-	public static String twitter_accessToken = "1052230420182519808-rDk4irssdofqNhmefXYpfjdwBicl3x";
-	public static String twitter_accessTokenSecret = "hXjYJYu2mGqh21IoxIDxZqupBAr8KW8abeLFBX8oU7MM9";
 
 	static ImageIcon getLogoImage() {
 		return new ImageIcon(BDAConfigs.class.getClassLoader().getResource("logo_iscte.png"));

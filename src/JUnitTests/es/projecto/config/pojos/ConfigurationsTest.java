@@ -1,13 +1,15 @@
-package es.projecto.hmi.pojos;
+package es.projecto.config.pojos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
 
-import es.projecto.common.ConfigHelper;
+import es.projecto.config.ConfigHelper;
+import es.projecto.config.pojos.Configurations;
+import es.projecto.config.pojos.EmailConfigs;
+import es.projecto.config.pojos.FacebookConfigs;
+import es.projecto.config.pojos.TwitterConfigs;
 
 public class ConfigurationsTest {
 
@@ -59,17 +61,8 @@ public class ConfigurationsTest {
 	private Configurations initializeConfigs() {
 		ConfigHelper ch = ConfigHelper.getInstance();
 
-		try {
 			return ch.getConfigurations();
-		} catch (IOException e) {
-
-			FacebookConfigs facebookConfigs = new FacebookConfigs("accessToken", "clientId", "appId");
-			TwitterConfigs twitterConfigs = new TwitterConfigs("consumerKey", "consumerSecret", "accessToken",
-					"accessTokenSecret");
-			EmailConfigs emailConfigs = new EmailConfigs("user", "password");
-
-			return new Configurations(facebookConfigs, twitterConfigs, emailConfigs);
-		}
+	
 	}
 
 }

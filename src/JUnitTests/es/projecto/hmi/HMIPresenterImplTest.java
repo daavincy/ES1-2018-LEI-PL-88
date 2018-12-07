@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import org.junit.jupiter.api.Test;
 
-import es.projecto.hmi.pojos.NewsHeaders;
+import es.projecto.config.pojos.NewsHeaders;
 import es.projecto.hmi.utils.Constants;
 
 class HMIPresenterImplTest {

@@ -4,59 +4,82 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import es.projecto.facebook.conection.FacebookConection;
-import es.projecto.hmi.pojos.BDAConfigs;
-import es.projecto.hmi.pojos.NewsHeaders;
+import es.projecto.config.ConfigHelper;
+import es.projecto.config.pojos.EmailConfigs;
+import es.projecto.config.pojos.NewsHeaders;
+import es.projecto.config.pojos.TwitterConfigs;
+import es.projecto.email.EmailClient;
+import es.projecto.facebook.conection.FacebookBDAClient;
+import es.projecto.hmi.interfaces.HmiPresenter;
 import es.projecto.hmi.utils.Constants;
 import es.projecto.hmi.visualeelements.BomDiaAcademia;
 import es.projecto.twitter.conection.TwitterMain;
 
 /**
- * Classe que implementa o interface que habilita o GUI o acesso aos dados e inicializa a aplicação
+ * Classe que implementa o interface que habilita o GUI o acesso aos dados e
+ * inicializa a aplicação
+ * 
  * @author Elvino Monteiro
  *
  */
 public class HMIPresenterImpl implements HmiPresenter {
 
 	private TwitterMain main;
+	private BomDiaAcademia window;
 
 	public HMIPresenterImpl() {
-		main = new TwitterMain(BDAConfigs.twitter_consumerKey, BDAConfigs.twitter_consumerSecret,
-				BDAConfigs.twitter_accessToken, BDAConfigs.twitter_accessTokenSecret);
+		window = new BomDiaAcademia(this);
 	}
 	
 	/**
-	 * Obtem uma lista de feeds do twitter que sejam publicados por contas associadas ao iscte
+	 * Mostra a janela para interacção do utilizador
+	 */
+	protected void start() {
+		window.frame.setVisible(true);
+	}
+
+	/**
+	 * Obtem uma lista de feeds do twitter que sejam publicados por contas
+	 * associadas ao iscte
 	 * 
 	 * @return a lista obtida
 	 */
 	private List<NewsHeaders> getTwitterData() {
 		ArrayList<NewsHeaders> result = new ArrayList<NewsHeaders>();
-try {
-		main.getStatuses().stream().forEach(t -> {
+		TwitterConfigs twitterConfigs = ConfigHelper.getInstance().getConfigurations().gettwitterConfigs();
+		main = new TwitterMain(twitterConfigs.getConsumerKey(), twitterConfigs.getConsumerSecret(),
+				twitterConfigs.getAccessToken(), twitterConfigs.getAccessTokenSecret());
+		try {
+			main.getStatuses().stream().forEach(t -> {
 
-			result.add(new NewsHeaders(t.getId(), Constants.TWITTER_ID,
-					t.getText().length() < 30 ? t.getText() : t.getText().substring(1, 30), t.getText(),
-					t.getUser().getScreenName(), t.getCreatedAt()));
-		});
-}catch (Exception e) {
-	System.err.println("twitter limit excedded");
-}
+				result.add(new NewsHeaders(t.getId(), Constants.TWITTER_ID,
+						t.getText().length() < 30 ? t.getText() : t.getText().substring(1, 30), t.getText(),
+						t.getUser().getScreenName(), t.getCreatedAt()));
+			});
+		} catch (Exception e) {
+			System.err.println("twitter limit excedded");
+		}
+		result.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
 		return result;
 	}
-	
-	
+
 	/**
 	 * Obtem uma lista de feeds do facebook
 	 * 
 	 * @return a lista obtida
 	 */
 	private List<NewsHeaders> getFacebookData() {
-		FacebookConection fbclient = new FacebookConection("EAAElkZB1PPCABAJqd07ZAZB1gRA6zpJBnBXAvaTFw5qoa4zkdRK7m2SsApCVWhFvLdK4Y14jQcXGuCoJnizGDUCvDJHPzxfQXD0n7FVqdALG6K3XdPiow83TVJ1zb618TgLl78w34lC3Euuz7ZBuNfZCsDIFXOjujXzw6LySLLaHZAZC3REKQwL");
-		return fbclient.getUserTimelinePosts();
-		
+		FacebookBDAClient fbclient = new FacebookBDAClient(
+				ConfigHelper.getInstance().getConfigurations().getfacebookConfigs().getAccessToken());
+		List<NewsHeaders> result=fbclient.getUserTimelinePosts();
+		result.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
+		return result;
+
 	}
 
 	/**
@@ -65,13 +88,19 @@ try {
 	 * @return a lista obtida
 	 */
 	private List<NewsHeaders> getEmailData() {
-//		String password = "1234wasd";
-//		String user = "afcmota11@gmail.com";
-//		Email emailClient = new Email(user,password);
-//		return emailClient.getEmails();
-		return new ArrayList<>();
+		EmailConfigs emailConfigs = ConfigHelper.getInstance().getConfigurations().getemailConfigs();
+		EmailClient emailClient = new EmailClient();
+		List<NewsHeaders> result=new ArrayList<>();
+				try {
+					emailClient.connect(emailConfigs.getUser(),emailConfigs.getPassword());
+					result = emailClient.getEmailMessages(null);
+				} catch (MessagingException e) {
+					JOptionPane.showMessageDialog(window.frame, new JLabel(e.getLocalizedMessage()), "Dados incorrectos", JOptionPane.WARNING_MESSAGE);
+				}
+				result.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
+		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -82,10 +111,10 @@ try {
 		List<NewsHeaders> result = getFacebookData();
 		result.addAll(getTwitterData());
 		result.addAll(getEmailData());
-		result.sort((d1,d2)-> d2.getDate().compareTo(d1.getDate()));
+		result.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
 		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -127,18 +156,6 @@ try {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.projecto.hmi.HmiPresenter#setConfigurations(es.projecto.hmi.pojos.
-	 * BDAConfigs)
-	 */
-	@Override
-	public void setConfigurations(BDAConfigs configs) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static void main(String[] args) {
 		try {
 			// Set cross-platform Java L&F (also called "Metal")
@@ -150,13 +167,16 @@ try {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BomDiaAcademia window = new BomDiaAcademia(new HMIPresenterImpl());
-					window.frame.setVisible(true);
+					HMIPresenterImpl presenter = new HMIPresenterImpl();
+					presenter.start();
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+
+
 
 }

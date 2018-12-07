@@ -1,7 +1,14 @@
-package es.projecto.hmi.pojos;
+package es.projecto.config.pojos;
 
-public class FacebookConfigs {
+import java.io.Serializable;
+import java.lang.reflect.Field;
 
+public class FacebookConfigs extends AbstractConfig implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2319191645228273695L;
 	private String accessToken;
 	private String clientId;
 	private String appId;
@@ -58,6 +65,27 @@ public class FacebookConfigs {
 	 */
 	public void setAppId(String appId) {
 		this.appId = appId;
+	}
+	
+	@Override
+	protected Field[] getFields() {
+		return getClass().getDeclaredFields();
+	}
+
+	@Override
+	protected String getFieldValue(String name) {
+		// TODO Auto-generated method stub
+		try {
+			return (String) getClass().getDeclaredField(name).get(this);
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setFieldValue(String propertyname, String propertyvalue) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		getClass().getDeclaredField(propertyname).set(this, propertyvalue);
+		
 	}
 	
 	
