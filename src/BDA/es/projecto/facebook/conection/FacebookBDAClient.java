@@ -6,7 +6,9 @@ import java.util.List;
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.Parameter;
 import com.restfb.Version;
+import com.restfb.types.FacebookType;
 import com.restfb.types.Post;
 
 import es.projecto.config.pojos.NewsHeaders;
@@ -45,6 +47,10 @@ public class FacebookBDAClient {
 		return headers;
 	}
 
+	public void sharePost(Post post){
+		fbClient.publish("me/feed", FacebookType.class, Parameter.with("link", post.getLink()));
+	}
+	
 	/**
 	 * Main method
 	 * @param args

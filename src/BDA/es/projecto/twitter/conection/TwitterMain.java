@@ -15,11 +15,12 @@ public final class TwitterMain  {
 	
 	 
 	/**
-	 * TwitterMain constructor
-	 * @param consumerKey
-	 * @param consumerSecret
-	 * @param accessToken
-	 * @param accessTokenSecret
+	 * Atravez dos parametros constroi as configurações para login
+	 * 
+	 * @param consumerKey - String
+	 * @param consumerSecret - String
+	 * @param accessToken - String
+	 * @param accessTokenSecret - String
 	 */
 	public TwitterMain(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
 
@@ -44,7 +45,6 @@ public final class TwitterMain  {
 	 * Metodo Devolve um Arraylist, filtrado por ISCTE, com os status do nome do user e respetivo texto do twitt
 	 * 
 	 * @return ArrayList with the filtered statuses
-	 * 
 	 * 
 	 */
 	public ArrayList<Status> getStatuses() {
@@ -82,53 +82,22 @@ public final class TwitterMain  {
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param comment
-	 */
-	public void interract(String comment) {
-		
-		twitter = TwitterFactory.getSingleton();
-		Status status = null;
-		System.out.println("Successfully updated the status to [" + status.getText() + "].");
-	}
-	
 	
 	/**
-	 * 
-	 * @param comment
+	 * Metodo faz um Re-tweet, atravez de um id recebido, id esse que representa o post
+	 * que vai ser "Re-tweetado"
+	 * @param tweetID
 	 */
-	public void interacteRetwett(String comment) {
-		
-		for(Status s : getStatuses()) {
+	public void interactRetwett(long tweetId) {
+		Status s;
 			try {
-				twitter.retweetStatus(s.getId());
+				twitter.retweetStatus(tweetId);
 			} catch (TwitterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}			
-		}
 	
 	}
 
-
-
-
-	/**
-	 * Main method
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		// http://twitter4j.org/en/code-examples.html
-		// https://www.youtube.com/watch?v=uYPmkzMpnxw~
-		
-		
-		TwitterMain m = new TwitterMain("WwkVm3nKOV5OF7b1iSkLqPE6w","DPKF4GyPbtgB3tO5RdnyOW2Ad03vq1V0fYZxorvTlakj8IjuAF", 
-				"1052230420182519808-rDk4irssdofqNhmefXYpfjdwBicl3x", "hXjYJYu2mGqh21IoxIDxZqupBAr8KW8abeLFBX8oU7MM9");
-		m.getStatuses();
-		
-
-     }
 }
     
