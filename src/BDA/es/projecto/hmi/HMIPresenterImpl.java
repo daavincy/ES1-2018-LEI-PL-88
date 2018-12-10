@@ -166,6 +166,7 @@ public class HMIPresenterImpl implements HmiPresenter {
 
 	@Override
 	public void sendMessage(String string,Object postId, int provider) {
+	
 		switch(provider) {
 		case Constants.TWITTER_ID:
 			maitwitterClient.interactRetwett((Long)postId);
@@ -174,7 +175,13 @@ public class HMIPresenterImpl implements HmiPresenter {
 			fbclient.sharePost((String) postId);
 			break;
 		case Constants.EMAIL_ID:
-//			emailClient.sendMail(to, subject, text);
+			if(postId instanceof NewsHeaders) {
+				String to = ((NewsHeaders)postId).getPoster();
+				String subject = ((NewsHeaders)postId).getShorttext();
+			emailClient.sendMail(to, subject, string);
+			}
+			break;
+			
 			default:
 		}
 		

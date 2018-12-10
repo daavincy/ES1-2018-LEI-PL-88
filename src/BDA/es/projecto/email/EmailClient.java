@@ -162,7 +162,7 @@ public class EmailClient {
 			InternetAddress address = (new InternetAddress(to));
 			msg.setRecipient(Message.RecipientType.TO, address);
 			msg.setReplyTo(new Address[] {address});
-			msg.setSubject(subject);
+			msg.setSubject("RE:" + subject);
 			msg.setSentDate(new Date());
 			msg.setText(text);
 

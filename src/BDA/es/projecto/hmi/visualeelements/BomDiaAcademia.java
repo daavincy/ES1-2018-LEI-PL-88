@@ -136,9 +136,31 @@ public class BomDiaAcademia {
 
 					@Override
 					public void interact(String message) {
-						presenter.sendMessage("", item.getId() == 0L ? item.getId2() : item.getId(),
+						if(item.getProvider()==Constants.EMAIL_ID) {
+							
+							EmailReplyDialog emailResponse = new EmailReplyDialog(item.getPoster(), new InteractionCallback() {
+								
+								@Override
+								public void interact( String message) {
+									new Thread(new Runnable() {
+										
+										@Override
+										public void run() {
+											presenter.sendMessage(message,item,item.getProvider());											
+										}
+									}).start();
+									
+									JOptionPane.showMessageDialog(frame, "A enviar mensagem...", "Interagir",
+											JOptionPane.INFORMATION_MESSAGE);
+								}
+							});
+							emailResponse.setVisible(true);
+							return;
+						}
+							
+						presenter.sendMessage(message==null?"":message, item.getId() == 0L ? item.getId2() : item.getId(),
 								item.getProvider());
-						JOptionPane.showMessageDialog(frame, "A enviar mensagem :)", "Interagir",
+						JOptionPane.showMessageDialog(frame, "A enviar mensagem...", "Interagir",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
