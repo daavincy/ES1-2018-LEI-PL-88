@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <CommunicationClass name="es.projecto.email.EmailClient" x="159" y="525"/>
+    <CommunicationClass name="es.projecto.config.pojos.TwitterConfigs"
+        x="686" y="60"/>
+    <CommunicationClass name="es.projecto.twitter.conection.TwitterMain"
+        x="909" y="793"/>
+    <CommunicationClass name="es.projecto.config.pojos.Configurations"
+        x="347" y="401">
+        <Association
+            destinationClassName="es.projecto.config.pojos.FacebookConfigs"
+            endpointName="facebookConfigs" kind="Simple"/>
+        <Association
+            destinationClassName="es.projecto.config.pojos.TwitterConfigs"
+            endpointName="twitterConfigs" kind="Simple"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.projecto.facebook.conection.FacebookBDAClient" x="566" y="704"/>
+    <CommunicationClass name="es.projecto.hmi.HMIPresenterImpl" x="867" y="628">
+        <Association
+            destinationClassName="es.projecto.email.EmailClient"
+            endpointName="emailClient" kind="Simple"/>
+        <Association
+            destinationClassName="es.projecto.facebook.conection.FacebookBDAClient"
+            endpointName="fbclient" kind="Simple"/>
+        <Association
+            destinationClassName="es.projecto.twitter.conection.TwitterMain"
+            endpointName="maitwitterClient" kind="Simple"/>
+        <Communication destinationClassName="es.projecto.config.pojos.NewsHeaders"/>
+        <Communication destinationClassName="es.projecto.email.EmailClient"/>
+        <Communication destinationClassName="es.projecto.config.pojos.TwitterConfigs"/>
+        <Communication destinationClassName="es.projecto.twitter.conection.TwitterMain"/>
+        <Communication destinationClassName="es.projecto.config.pojos.Configurations"/>
+        <Communication destinationClassName="es.projecto.config.pojos.FacebookConfigs"/>
+        <Communication destinationClassName="es.projecto.facebook.conection.FacebookBDAClient"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.projecto.hmi.visualeelements.ListRender" x="251" y="151">
+        <Association
+            destinationClassName="es.projecto.hmi.interfaces.DetailsViewCallback"
+            endpointName="callback" kind="Simple"/>
+        <Communication destinationClassName="es.projecto.hmi.interfaces.DetailsViewCallback"/>
+        <Communication destinationClassName="es.projecto.config.pojos.NewsHeaders"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.projecto.hmi.interfaces.DetailsViewCallback" x="95" y="281"/>
+    <CommunicationClass name="es.projecto.config.pojos.NewsHeaders"
+        x="371" y="286"/>
+    <CommunicationClass
+        name="es.projecto.hmi.visualeelements.ConfigurationsDialog"
+        x="330" y="27">
+        <Communication destinationClassName="es.projecto.config.ConfigHelper"/>
+    </CommunicationClass>
+    <CommunicationClass name="es.projecto.config.pojos.FacebookConfigs"
+        x="487" y="86"/>
+    <CommunicationClass name="es.projecto.config.ConfigHelper" x="164" y="72"/>
+</ClassDiagram>
