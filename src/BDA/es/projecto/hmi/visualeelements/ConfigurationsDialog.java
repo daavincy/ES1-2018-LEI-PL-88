@@ -120,7 +120,7 @@ public class ConfigurationsDialog extends JDialog {
 					@Override
 					public void removeConfigValue(String string, String text) {
 						try {
-							configs.getfacebookConfigs().setFieldValue(string, text);
+							configs.gettwitterConfigs().setFieldValue(string, text);
 						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
 								| SecurityException e) {
 
@@ -176,7 +176,7 @@ public class ConfigurationsDialog extends JDialog {
 					@Override
 					public void removeConfigValue(String string, String text) {
 						try {
-							configs.getfacebookConfigs().setFieldValue(string, text);
+							configs.getemailConfigs().setFieldValue(string, text);
 						} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
 								| SecurityException e) {
 
